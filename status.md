@@ -2,8 +2,9 @@
 
 ## Legend
 - [ ] : video idea ; folder and description need to be created
-- [c] : folder and description exists ; ready for creation of script.md
+- [s] : folder and description exists ; ready for creation of script.md
 - [o] : open for review ; script.md exists, but it is not yet reviewed
+- [c] : correction needed ; see review findings 
 - [r] : reviewed and ready for creating video content
 - [x] : video is produced and ready for deployment
 - [yyyy.mm.dd] : video is released at date if format "yyyy.mm.dd"
