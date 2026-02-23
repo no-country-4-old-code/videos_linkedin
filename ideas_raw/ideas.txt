@@ -1,0 +1,8 @@
+- How fast to crack a hash ? (Hashcat -b on home pc for MD5 and Scrpy. Then In Docker with Octocat and deploy on KI-Cluster-> new benchmark test)
+- Leetspeak Passwords ? (common usecase -> coverd by hahscat rules. )
+- Encryption Vs Hash (Show how ard it is to break a encryption Vs Hash and WHY you should not encrypt your Passwords)
+- certificates ?
+- Performance Riddle: Slow Access times if not in one Memory Block because of L1 Cache. (Draft)
+- Performance Riddle: Sorted numbers faster in CPU because of estimation. CPU-Pupeline (Draft)
+- Performance Announce: Post & Pic with fn creating String Vs. fat pointer to literals. Faster cause no heap. Please not use dynamic for literals.
+- Algorithm : Hashmap Vs. Straight Forward. When is what faster.

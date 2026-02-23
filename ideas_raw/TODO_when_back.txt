@@ -1,0 +1,50 @@
+- Korrigierte Videos:
+--> Video + Sprache + Schneiden
+- Neues Video: 
+--- 07_Rust_bloated
+--- 08_ASLR
+--- 09_PIE Vs No PIE
+--- 10__data Vs. .bss Vs .ro
+--- DOOM 1 run GitHub. Bad: Losing health. Many ways to modify. PRELOAD-Technique .so -> Build lib with otign files, then PRELoad and intercept.
+--- Shared Lib Injection DURING FLIGHT in RAM (Program with uses func of .so to print number all sec. . Attach via gdb. Load own .so with other print func in memory same ABI (dlopen). Then modify pointer from relocation table, so that now this is called. Deattach gdb.
+--- Mixing Rust and C / C++ and ASM 
+--- Rust in Linux 
+--- Hack1: Shell-Code Injection (NX-protect)
+--- Hack2: Put in ENV && overwrite IP (Canary, NX-protect)
+--- Hack3: ROL Attack - jumping from to from (ASLR)
+--- Hack4: Sidechannel attack (Meltdown, How displayed)
+--- HackMe 1 & 2
+--- CPU - Pipeline faster with sorted (e.g. of CPU pipeline)
+--- CPU - Caches 
+--- CPU - ??? Max. nr of arguments ?
+--- CPU - vulnerbilities (sys/cpu/vulnerbilitues)
+--- CPU vs. GPU
+--- ARM Vs. RISC Vs. ...
+--- HW Attacks / Tempering
+
+--- Syscall with ASM on Linux 
+
+--- LeetCode: N often small 
+
+
+o- Video drehen und Einsprechen: Montag
+o- Lernen / Texten / Schneiden : Abends (oder wann Zeit ist)
+
+
+==== Learning in Paralell 
+- Rust Book
+(Unsafe code with raw pointers, WebServer Task of RUST book, 
+rustlings.org,
+Common Project Case like videos:
+- errors, utils/support, modules, Construct/Setter/Builder, Ext. Trait && Wrapper Trait, Examples & Tests, Compiling README + Documentstion
+)
+- RISC-V Book (Run ASM, C, RUST with blinkikg LED and debugging)
+- DAILY Algo.Monster in Rust | C
+- RISC-V + RUST: Internet-Radio Stream, Output, intergrierbar ins Smart Home via Zigbee. Inkl. Leiterplatine & 3D Druck Schablone. Alles in Github.
+- RISC-V + RUST: USB-Keyboard Switcher.
+Gets SD-Card with Mapping. Maps keys to those (multiple) keys. Led (Startup, Ready, Err-SD, PAUSED), ON / OFF button. Good for Gaming Shortcuts or to Prank Collegues.
+Showcase with Logicanalyser or Oszi.
+- RISC-V OR ARM : Life Speech Frequenz modifier. Plug in your Usb Microfon / Headset and everythinf is bypassed to output, but speech is modified. 
+---> Maybe later with AI to translate on fly.
+- RUST Liegestützapp
+- Yocto, Zephir 

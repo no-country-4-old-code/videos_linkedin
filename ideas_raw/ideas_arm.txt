@@ -1,0 +1,36 @@
+
+
+
+## ARM
+
+  // Float-Point-Unit is needed for float-point things. Otherwise a hard fault will be caused when using float operations.
+  // With active FPU, task switches need to save/restore additional s1- s32 registers.
+  // Also there more registers. Leaving it disabled , reduces the static leakage, because it is cut of from current and clock cycle.
+  // There is also another option:
+  // instead of " -mfloat-abi=hard ", I can compile with "  -mfloat-abi=soft ", which means I use the CPU for float operations.
+  // This way, I do not have the static current of the FPU, because I do float operations using the CPU.
+  // That means my float operations are 50x slower.
+  // How much power (Watt) does this means ?
+  // ! Nice idea for video !!+
+
+  // Whats Thumb2 vs normal ARM ?
+  // Compile with Thumb2 and without Thumb2 and look at the elf file.
+  // Compare size.
+
+  // How does "Debug ELF" and "Release ELF" differentiate ????
+  // Look at program Header table . COmpare with x86.
+  // Read by Flasher is different
+
+  // stemem.c -> how does malloc know where to allocate Memory ? YOu tell it !
+  // Look at ld-files. See defines like Flash etc. 
+  // See open dependencies when Looking at Symbols with "nm"
+
+  // What to track if develop embedded Firmware ?
+  // - Power Consumption for certain usecases like StartUp  (Power Profile Kit )
+  // - Time in IDLE State (for Dbg. Version) (or CPU Load)
+  // - Memory , RAM, etc. usage from ELF-file alone
+  // - RAM (heap, stack) usage (min/max ; average) (for Dbg. Version)
+  // Also "Short" and "Long Term"-Tests (let it run a few Hours/days in common usecases ; Check if Memory consumption is rising)
+
+
+  // Syscalls. --> On ARM32. When build your own Linux System or write embedded code, your are the one who define those _syscalls. E.g. here I have code for an STM32L MCU. If I run "print" from the std.Lib. then what happend ? Well.. Looking at the .o file we see that there is an open dependency to the syscall _write. ANd Looking back in our repository, we see that we have here a file which impleemnts our syscall. So I can decide. I can just log it. Or print it on the Serial Output. Or Maybe I have a LCD Display connected, then I send it to this.
