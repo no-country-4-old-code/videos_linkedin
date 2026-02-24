@@ -27,8 +27,17 @@ And this hashing should be done with Key-derivate-Function and so on, because ev
 So Stay safe until then, && like this video.. it my first one
 
 
-## CLI
-"my_password"
+## Display / CLI / Code
+
+Show code.c for embedded with clear text pwd in it. (example code with nvim)
+- 1) with "clear text"
+- 2) then same injected over ENV-Variable
+
+Show Download Page with state:
+Download our new Firmware "firmware-update-v4.2"
+
+Download firmware and open in WindowsBrowser and Click on it via WindowsTextEditior
+Windows Editor -> "Search for Password"
 
 sudo apt install binutils
 strings -n 8 firmware-update-v4.2 |
@@ -37,4 +46,3 @@ strings -n 8 firmware-update-v4.2 |
 strings firmware-update-v4.2 -t x | grep -Ff common_user_names.txt
 xxd -s 0x814d -l 0x40 firmware-update-v4.2xx
 
-Windows Editor -> "Search for Password"

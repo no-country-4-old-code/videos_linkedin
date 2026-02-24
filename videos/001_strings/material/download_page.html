@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Device Firmware Portal</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, Helvetica, sans-serif;
+            background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+            color: #fff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .container {
+            background: #1e2a33;
+            padding: 40px;
+            border-radius: 12px;
+            width: 420px;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        }
+
+        h1 {
+            margin-bottom: 10px;
+            font-size: 24px;
+        }
+
+        .version {
+            font-size: 18px;
+            color: #00d4ff;
+            margin-bottom: 20px;
+        }
+
+        .info {
+            font-size: 14px;
+            margin-bottom: 30px;
+            color: #cfd8dc;
+        }
+
+        button {
+            background: #00d4ff;
+            color: #000;
+            border: none;
+            padding: 15px 25px;
+            font-size: 16px;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: 0.3s ease;
+        }
+
+        button:hover {
+            background: #00aacc;
+            transform: scale(1.05);
+        }
+
+        .footer {
+            margin-top: 30px;
+            font-size: 12px;
+            color: #90a4ae;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="container">
+    <h1>Firmware Update Portal</h1>
+    <div class="version">Latest Version: v4.2</div>
+    <div class="info">
+        Stability improvements, performance optimization, 
+        and enhanced device security.
+    </div>
+
+    <button onclick="downloadFirmware()">
+        Get Firmware Update v4.2
+    </button>
+
+    <div class="footer">
+        © 2026 Device Solutions Ltd.
+    </div>
+</div>
+
+<script>
+    function downloadFirmware() {
+        // Firmware file must be in the same directory as this HTML file
+        const link = document.createElement('a');
+        link.href = "binaries/firmware_v4.2.bin"; 
+        link.download = "binaries/firmware_v4.2.bin";
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+    }
+</script>
+
+</body>
+</html>
