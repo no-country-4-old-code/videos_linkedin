@@ -4,33 +4,28 @@
 
 ## TEXT
 
-Hi everyone,
-here is why you should **not** store your passwords as clear text in your application or firmware.
+Everytime I see someone using cleartext password - direct or indirect - it gives me bad vibes.
+Its like.. "Hey, lets deploy the password directly to the customer"
+Even your grandma could open this file here with the way-to-boring windows text editor to read out the password.
+Something YOUR grandma of course would NEVER do.
+Because she is a damn professional. She would use a better tool for that - like strings. 
+Here we see her using it with the -n parameter to extract only strings from the binary which have a minimum lentgh of 8.
+Then she pipes the whole stuff to `grep` to print only only lines which contain at least one number, one uppercase letter, one lowercase letter, and one special character.
+Which are the basic password requirments.. because nobody really wants to read through all the strings of a binary.
+Our time on this planet is still limited, you know.
 
-When I say **"clear text"**, I mean storing passwords directly like this.
+And sometimes when your grandma feels lucky, she prefers a more indirect method, by searching not for the password, but for common usernames instead.
+With the -t option she gets the location of the string within the binary.
+And then she just look a little bit around this location using a standard hex-editor..
+..and.. ups.. find a password.
+which of course only works if username and password are located close to each other in the binary, but well..
+I am not here to tell you how to organize your code.
 
-If an attacker gains access to your binary—whether through a leaked firmware update, by extracting it from a manipulated device, or by any other means—then the password can easily be read out.
+I am here to tell you to protect your passwords against evil grandmothers by hashing them.
+The passwords of course..not the grandmothers.
+And this hashing should be done with Key-derivate-Function and so on, because every evil grandma has a hashcat at home, which just wait to crack your hashes - but this will be the topic for next time.
+So Stay safe until then, && like this video.. it my first one
 
-For example, the tool **`strings`** (which comes with the installation of *binutils*) can be used to print all readable strings within a binary.
-Let’s combine it with some filtering:
-Here I use the `-n` parameter to set the minimum string length to 8.
-Then I use `grep` to print only lines which contain at least one number, one uppercase letter, one lowercase letter, and one special character.
-And — *voilà* — here is our password.
-
-Another approach would be to search for common usernames.
-This is based on the assumption that the username and password are located close to each other in the binary.
-
-But if you find that this looks way too hacky… well, you could also just open the binary in the Windows text editor and scroll through it for a while.
-Then you will also find the Password.
-
-BECAUSE anyone can read a password which is stored in clear text.
-So storing a Password in clear text is a Pretty dumb idea.
-A much better alternative is to store a **salted hash** of the password instead.
-The hash may still be extracted, but the attacker then needs to **crack** it to retrieve the real password.
-
-And that’s it for now.
-If you liked this video, don’t forget to leave a like, and I hope to see you next time.
-Bye.
 
 ## CLI
 "my_password"
