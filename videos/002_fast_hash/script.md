@@ -1,25 +1,41 @@
+## Title
+Fast, faster, unsecure !
+(rocket as symbol)
+
 ## Text
-> Hello everyone,
+Faster is always better, right ?
+Well..it depends... at least in case of cybersecurity.
+If you hash your password using the fast MD5-hash-function,
+then attackers benefit massive from that.
 
-> Storing password hashes instead of passwords is a good idea.
-> But not every hash function is suitable for hashing passwords.
-MD5, for example, is a very fast hashing function.
-"Fast" sounds good, but it means that cracking tools like Hashcat can check over a billion >hashes per second (even without GPU support).
+Cracking tools.. sry, I meant "password recovery utilities" like hashcat need to calculate the hashes of billions of potential passwords.
+..and when calculating hashs is fast, then cracking them, is it also.
 
-> So you do not want a fast hash function for hashing passwords; you want a slow one.
-> Key-derivation functions like Argon2 or scrypt are slow by design.
+Lets make a benchmark test with hashcat on an average PC and without GPU support.
+-b stands for benchmark. -m specifys the identifer of the hashfunction , which is 0 for MD5...
+And the result is solid.. hashcat can check around 1 billion MD5 hashes per secound.
 
-Here is a comparison:
+So you do not want a fancy hash function for hashing passwords; you want a ugly one.
+And Key-derivation functions like Argon2 or scrypt are very ugly by design.
+Slow, memory hungry and hard to optimize.
+Nothing you want to run in a loop..
+
+Lets run the benchmark test again for scrypt.
 Hashcat performance on the same system drops down to 200 hashes per second when using scrypt.
-So, by choosing a KDF for hashing, you can really slow down attackers.
+So, by choosing a KDF for hashing, you really slow down attackers.
 
-If you are unsure how fast your hash function is, I would advise you to run benchmark tests using Hashcat or John the Ripper.
-For Hashcat, it is just `hashcat -b` for a benchmark and `-m` to specify the hash function.
-A list of all supported hash functions can be found in the Hashcat manual.
+And thats it for today,
+next time we talk about rainbow-tables and how salt destorys them.
+Cerioo
 
-That's all for today,
-thank you.
+## Code / Display
 
-## Code
+- Github of hashcat: https://github.com/hashcat/hashcat
+- hashcat -b -m 0  ==> run + result
+- man hashcat ; scrolling down to /scrypt 
+- hashcat -b -m 4110 ==> run + result
+
+
+
 
 
