@@ -18,7 +18,7 @@ Each video has two phases:
 Videos are max 5 minutes, information-dense, and entertaining. Show short, exciting things.
 
 ### Shorts
-Shorts are additional videos tied to the same topic as the main video. They are **<= 1 minute** each. Up to 4 per main video. Same structure as script.md.
+Shorts are additional videos tied to the same topic as the main video. They are **<= 1 minute** each. Up to 4 per main video. Same structure as script.md. Each short must cover a distinct angle — no overlapping content between shorts.
 
 ## Script File Format
 
