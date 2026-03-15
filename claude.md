@@ -1,34 +1,54 @@
-## Folder
-- videos/ : contain all videos.
-- ideas_raw/ : contain ideas. No folder for you.
-- status.md : contain status of videos.
+# Project Instructions for Claude
 
-## Purpose
-This repository contains scripts for videos about coding and security.
-The videos are rather short (max. 5 min) and information dense.
-See text of existing one for example.
-The video need to be enteraining, so I want to show short exciting things.
-The video is normally as follows:
-- Entry with me in fullscreen. I say 1-2 sentence to hook people.
-- Then we the the screenrecording, whcih is CLI , Coding, Repositories, whatever. I speak , but nobody sees me.
-- Then at the end , we change to fullscreen again, and I finsih the recording and set a hook for next time.
-The video is in script.md of the folder.
+## Repository Structure
 
-Additional to this there are short videos, which are <= 1min and touch the topic of the "main" video.
-There strcutre is similar to the one in script.md.
+```
+videos/          - One subfolder per video. Each folder contains script.md and optionally short_*.md files.
+ideas_raw/       - Raw ideas. Do not create files here.
+status.md        - Tracks the status of all videos. Always check this before starting work.
+```
 
-## Expectation towards Claude
-Scripts according to my style.
-Code / CLI / BASH Examples that work and are catchy.
-Claude does never any git commands.
+## Video Format
 
-## Workflow
-Look into status.md. You work on the following status:
-- [ ] : Create a folder and a short description what you think that video could be about. 
-- [s] : Based on the description, you find in the folder of this video, you create a script.md. Start with a script.md which has "Code / CLI / Actions" and "Text / Speech" together. Set status on [o] afterwards. Make sure this text matches the generell text style and the purpose of the repo.
-- [o] : Ignore those videos
-- [c] : Rework this video-description according to Review-Findings. Result should be a status.md where "Code / CLI " (all screen actions) and "Text / Speech" be under seperate headlines. This makes it easier to record one video for screen actions seperatly later on. Set status on [o] afterwards.
-- [short] : Create 4 short videos. They touch the topic of the video in script.md, but are much shorter (<= 1min). Set status to [o] afterwards. 
-- [r] : Ignore those videos
-- [x] : Ignore those videos
-- [yyyy.mm.dd] : Ignore those videos
+Each video has two phases:
+1. **On-camera intro** (1-2 sentences): Hook the audience.
+2. **Screen recording** (CLI / code / repos): The main content. Voice-over only, no face visible.
+3. **On-camera outro**: Wrap up and tease the next video.
+
+Videos are max 5 minutes, information-dense, and entertaining. Show short, exciting things.
+
+### Shorts
+Shorts are additional videos tied to the same topic as the main video. They are **<= 1 minute** each. Up to 4 per main video. Same structure as script.md.
+
+## Script File Format
+
+Each `script.md` (and `short_*.md`) must have two separate sections:
+
+```
+## Text
+(spoken words only)
+
+## Display / CLI / Code
+(all screen actions, commands, code snippets)
+```
+
+## Style Guidelines
+
+- Match the tone and style of existing scripts (direct, humorous, security-focused).
+- All CLI / code examples must be real and working.
+- No git commands — ever.
+
+## Workflow: Status Codes in status.md
+
+Read `status.md` and act based on the status of each video:
+
+| Status | Action |
+|--------|--------|
+| `[ ]` | **Create**: Make a new folder under `videos/` and write a short description of what the video could be about. |
+| `[s]` | **Write script**: Based on the description in the video folder, create `script.md` with `## Text` and `## Display / CLI / Code` sections combined. Set status to `[o]` when done. Match the repo's style. |
+| `[c]` | **Rework script**: Split the existing script into separate `## Text` and `## Display / CLI / Code` sections (see format above). Set status to `[o]` when done. |
+| `[short]` | **Create shorts**: Create up to 4 short video scripts (`short_1.md` to `short_4.md`) in the video folder. Each short touches the topic of the main `script.md` but is self-contained and <= 1 minute. Set status to `[o]` when done. |
+| `[o]` | Ignore — already in progress or done. |
+| `[r]` | Ignore. |
+| `[x]` | Ignore. |
+| `[yyyy.mm.dd]` | Ignore — published. |
