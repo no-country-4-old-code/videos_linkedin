@@ -14,8 +14,8 @@ There it is. Sitting in your compiled binary like it owns the place.
 "But I use an environment variable!" - Cool. Still there if you handle it wrong.
 
 If it ends up in your binary, strings will find it.
-Your grandma will find it.
-And she will not be happy.
+Anyone with a terminal will find it.
+And they will not be happy about your security practices.
 
 ---
 

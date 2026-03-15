@@ -6,11 +6,11 @@
 
 What if the password is obfuscated... but the username isn't?
 
-Your evil grandma doesn't always search for the password directly.
-Sometimes she searches for the username instead.
+Sometimes you don't search for the password directly.
+You search for the username instead.
 
-With `-t x` she gets the exact memory location of the string.
-Then she peeks around that spot with xxd.
+With `-t x` you get the exact memory location of the string.
+Then you peek around that spot with xxd.
 
 And there it is. Username. Password. Right next to each other in memory.
 Like a sticky note taped to the front door.
