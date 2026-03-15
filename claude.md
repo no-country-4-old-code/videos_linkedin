@@ -12,6 +12,10 @@ The video is normally as follows:
 - Entry with me in fullscreen. I say 1-2 sentence to hook people.
 - Then we the the screenrecording, whcih is CLI , Coding, Repositories, whatever. I speak , but nobody sees me.
 - Then at the end , we change to fullscreen again, and I finsih the recording and set a hook for next time.
+The video is in script.md of the folder.
+
+Additional to this there are short videos, which are <= 1min and touch the topic of the "main" video.
+There strcutre is similar to the one in script.md.
 
 ## Expectation towards Claude
 Scripts according to my style.
@@ -24,6 +28,7 @@ Look into status.md. You work on the following status:
 - [s] : Based on the description, you find in the folder of this video, you create a script.md. Start with a script.md which has "Code / CLI / Actions" and "Text / Speech" together. Set status on [o] afterwards. Make sure this text matches the generell text style and the purpose of the repo.
 - [o] : Ignore those videos
 - [c] : Rework this video-description according to Review-Findings. Result should be a status.md where "Code / CLI " (all screen actions) and "Text / Speech" be under seperate headlines. This makes it easier to record one video for screen actions seperatly later on. Set status on [o] afterwards.
+- [short] : Create 4 short videos. They touch the topic of the video in script.md, but are much shorter (<= 1min). Set status to [o] afterwards. 
 - [r] : Ignore those videos
 - [x] : Ignore those videos
 - [yyyy.mm.dd] : Ignore those videos
