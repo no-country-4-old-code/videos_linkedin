@@ -1,21 +1,21 @@
-## Short: "Finding Passwords by Username"
+## Short: "Obfuscating Just the Password Is Not Security"
 
 ---
 
 ## Text
 
-What if the password is obfuscated... but the username isn't?
+You obfuscated the password. Doesn't matter.
 
-Sometimes you don't search for the password directly.
-You search for the username instead.
-
-With `-t x` you get the exact memory location of the string.
-Then you peek around that spot with xxd.
+If the username is sitting in cleartext, it's a signpost pointing straight at the password.
+Search for the username. Get the memory offset.
+Peek around that spot with xxd.
 
 And there it is. Username. Password. Right next to each other in memory.
-Like a sticky note taped to the front door.
 
-Classic.
+The false sense of security: you hid the password but left the username, the config key, the surrounding context completely exposed.
+Any one of those is a map to the secret you thought you buried.
+
+Partial obfuscation is not a security boundary.
 
 ---
 

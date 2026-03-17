@@ -1,21 +1,20 @@
-## Short: "Cleartext Passwords in Code"
+## Short: "Compilation Is Not Encryption"
 
 ---
 
 ## Text
 
-Stop putting passwords directly in your code.
-
-I know. You know. And now strings knows too.
+A lot of developers think: I compiled the code, the source is gone, the secret is safe.
+It isn't.
 
 Here is a C file with a hardcoded password. We compile it. We run strings on the binary.
 There it is. Sitting in your compiled binary like it owns the place.
 
-"But I use an environment variable!" - Cool. Still there if you handle it wrong.
+Your compiler does not encrypt strings. It does not hide them. It just translates them into machine code — and strings reads right through that.
 
-If it ends up in your binary, strings will find it.
-Anyone with a terminal will find it.
-And they will not be happy about your security practices.
+Compilation is a build step, not a security boundary.
+If the value lives in your source, it lives in your binary.
+And if it lives in your binary, strings can read it.
 
 ---
 
