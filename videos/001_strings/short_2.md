@@ -4,29 +4,36 @@
 
 ## Text
 
-You obfuscated the password. Doesn't matter.
+You obfuscated the password. Good start. Not enough.
 
-If the username is sitting in cleartext, it's a signpost pointing straight at the password.
-Search for the username. Get the memory offset.
-Peek around that spot with xxd.
+The username is sitting in cleartext — that's your signpost.
+Search for it. Get the offset. Peek with xxd.
 
-And there it is. Username. Password. Right next to each other in memory.
+Username, right there. And next to it? Gibberish. That's your obfuscated password.
+You can't read it — but you know exactly where it lives and roughly how long it is.
 
-The false sense of security: you hid the password but left the username, the config key, the surrounding context completely exposed.
-Any one of those is a map to the secret you thought you buried.
+Field names like `password=` or `auth_key=` sitting next to the blob confirm what it is.
+And simple obfuscation — base64, XOR, ROT13 — is trivially reversible once you know the location.
 
-Partial obfuscation is not a security boundary.
+Obfuscation is not encryption. You gave the attacker a map.
+Hash passwords with a real KDF. Don't obfuscate them.
 
 ---
 
 ## Display / CLI / Code
 
 ```bash
-# Find usernames and their memory offsets
+# Find username and its memory offset
 strings -t x firmware-update-v4.2 | grep -Ff common_user_names.txt
+# Output: 0x814d admin
 
-# Peek at the memory around that offset
+# Peek at memory around that offset
 xxd -s 0x814d -l 0x40 firmware-update-v4.2
+# Output: username in cleartext, followed by unreadable bytes (the obfuscated password)
+
+# One-liner to show how trivially the obfuscation falls apart
+echo "cGFzc3dvcmQxMjM=" | base64 -d
+# Output: password123
 ```
 
-Show output: username found at offset, then xxd dump revealing password sitting right next to it in memory.
+Show: username found at offset → xxd dump with username readable + garbled bytes next to it → base64 decode revealing the secret in one shot.
