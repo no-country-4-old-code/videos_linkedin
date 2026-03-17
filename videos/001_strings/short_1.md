@@ -1,34 +1,43 @@
-## Short: "Your Photos Are Talking Behind Your Back"
+## Short: "strings on exotic files"
 
 ---
 
 ## Text
 
-Your photos contain more than just pixels.
+strings doesn't care about your file extension.
 
-Every time you post a selfie online, you might be sending your home address with it.
-Because JPEG files store metadata. And strings just... reads it out loud.
+JPEG? If it was edited in Photoshop or GIMP, the software signs its work. One grep — and you've proven the image was tampered with. Forensics 101.
 
-Camera model. Software version. GPS coordinates. Timestamps.
-One command. Zero effort.
+PDF? Someone sent you an "anonymous" document? strings will read out the author's name, the company, the original file path. Anonymous. Sure.
 
-Your phone has been narrating your life this whole time.
-You just never listened.
+APK? Your favourite app is just a zip file. Unzip it, run strings, grep for Firebase or amazonaws — and you're reading the backend infrastructure. Hardcoded URLs, internal API paths, user data fields. All of it.
 
-Next time you post a photo online... maybe check what it's saying about you first.
+strings doesn't care what you called the file.
 
 ---
 
 ## Display / CLI / Code
 
 ```bash
-# Download or use any photo from your phone
-strings photo.jpg | head -40
+# 1) JPEG — forensic: was this photo manipulated?
+strings photo.jpg | grep -i -E "photoshop|gimp|lightroom|adobe"
 ```
 
-Show output highlighting:
-- GPS coordinates (GPSLatitude, GPSLongitude)
-- Camera model (e.g. "iPhone 15 Pro" or "Samsung SM-G998B")
-- Software version (e.g. "iOS 17.1")
-- Timestamp fields
-- Possibly serial/device identifiers
+Show output: `Adobe Photoshop 25.0`, `gimp-2.10` — software signature proves the image was edited.
+
+```bash
+# 2) PDF — OPSEC failure: "anonymous" document
+strings document.pdf | grep -i -E "author|creator|producer|company|users"
+```
+
+Show output:
+- `Author: John Doe`
+- `/Users/johndoe/Documents/internal_report_FINAL2.pdf`
+- `Microsoft Word for Office 365`
+
+```bash
+# 3) APK — app recon: what's your app hiding?
+unzip -p app.apk | strings | grep -i -E "firebase|amazonaws|api\..*\.com"
+```
+
+Show output: Firebase project URL, S3 bucket endpoint, internal API base URL.
