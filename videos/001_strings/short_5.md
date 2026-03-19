@@ -4,17 +4,11 @@
 
 ## Text
 
-One command. Every secret a binary tries to hide.
+Shipped with binutils comes one of the most useful CLI tools to extract strings from binaries: `strings`.
 
-`strings` extracts human-readable text from binary files. It ships with binutils. It's been around since the early Unix days — we're talking 1970s and 80s.
+Use `-t x` to show the offset of each string in hex — great for reverse engineering. Use `-n` to set a minimum length and cut through the noise.
 
-And it still works. On everything.
-
-Firmware dumps. Malware samples. Compiled executables. IoT device images. `strings` doesn't care. It finds the text the developer left behind and hands it to you.
-
-Hidden URLs. Hardcoded credentials. Error messages. Version strings. All of it.
-
-Something this old and this simple is still the first tool security analysts reach for. That should tell you something.
+For more options, check the man page. Pretty useful tool. Been there for ages, but still absolutely worth it.
 
 ---
 
