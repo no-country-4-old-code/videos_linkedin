@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Headline Layout Options — "Read Binaries Like a Book"</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background: #111;
+      font-family: 'Segoe UI', system-ui, sans-serif;
+      color: #fff;
+      padding: 40px 20px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 60px;
+    }
+
+    h2.label {
+      font-size: 13px;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: #555;
+      margin-bottom: 12px;
+      text-align: center;
+    }
+
+    /* Vertical video frame: 9:16 */
+    .frame {
+      width: 360px;
+      height: 640px;
+      position: relative;
+      overflow: hidden;
+      border: 1px solid #333;
+      border-radius: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    /* ─── 1. STACKED — one word per line, growing size ─── */
+    .v1 { background: #0a0a0a; }
+    .v1 .stack {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      padding-left: 36px;
+      gap: 4px;
+      width: 100%;
+    }
+    .v1 .stack span {
+      font-weight: 900;
+      text-transform: uppercase;
+      line-height: 1;
+      color: #fff;
+    }
+    .v1 .stack span:nth-child(1) { font-size: 52px; color: #888; }
+    .v1 .stack span:nth-child(2) { font-size: 80px; }
+    .v1 .stack span:nth-child(3) { font-size: 52px; color: #888; }
+    .v1 .stack span:nth-child(4) { font-size: 72px; color: #00ff88; }
+    .v1 .accent-line {
+      position: absolute;
+      left: 24px; top: 50%;
+      width: 4px; height: 220px;
+      background: #00ff88;
+      transform: translateY(-50%);
+    }
+
+    /* ─── 2. TERMINAL — monospace, typed-out look ─── */
+    .v2 { background: #0d1117; }
+    .v2 .terminal {
+      width: 300px;
+      background: #161b22;
+      border: 1px solid #30363d;
+      border-radius: 8px;
+      padding: 20px;
+      font-family: 'Courier New', monospace;
+    }
+    .v2 .terminal .prompt {
+      color: #58a6ff;
+      font-size: 13px;
+      margin-bottom: 16px;
+    }
+    .v2 .terminal .prompt span { color: #3fb950; }
+    .v2 .terminal .word {
+      display: block;
+      font-size: 38px;
+      font-weight: 700;
+      color: #f0f6fc;
+      line-height: 1.15;
+    }
+    .v2 .terminal .word.highlight { color: #3fb950; }
+    .v2 .terminal .cursor {
+      display: inline-block;
+      width: 3px; height: 38px;
+      background: #58a6ff;
+      vertical-align: middle;
+      margin-left: 4px;
+      animation: blink 1s step-end infinite;
+    }
+    @keyframes blink { 50% { opacity: 0; } }
+
+    /* ─── 3. SPLIT — verb / noun contrast ─── */
+    .v3 { background: #fff; }
+    .v3 .split {
+      width: 100%; height: 100%;
+      display: flex;
+      flex-direction: column;
+    }
+    .v3 .top-half {
+      flex: 1;
+      background: #fff;
+      display: flex;
+      align-items: flex-end;
+      justify-content: center;
+      padding-bottom: 12px;
+    }
+    .v3 .bottom-half {
+      flex: 1;
+      background: #111;
+      display: flex;
+      align-items: flex-start;
+      justify-content: center;
+      padding-top: 12px;
+    }
+    .v3 .top-half .words {
+      text-align: center;
+      font-size: 62px;
+      font-weight: 900;
+      text-transform: uppercase;
+      color: #111;
+      line-height: 1;
+    }
+    .v3 .bottom-half .words {
+      text-align: center;
+      font-size: 62px;
+      font-weight: 900;
+      text-transform: uppercase;
+      color: #fff;
+      line-height: 1;
+    }
+    .v3 .bottom-half .words em {
+      font-style: normal;
+      color: #00c96b;
+    }
+
+    /* ─── 4. BIG SINGLE WORD FOCUS ─── */
+    .v4 { background: #07070f; }
+    .v4 .focus {
+      width: 100%;
+      padding: 0 28px;
+      text-align: center;
+    }
+    .v4 .focus .small {
+      font-size: 18px;
+      font-weight: 400;
+      text-transform: uppercase;
+      letter-spacing: 0.3em;
+      color: #555;
+      margin-bottom: 12px;
+    }
+    .v4 .focus .big {
+      font-size: 96px;
+      font-weight: 900;
+      text-transform: uppercase;
+      color: #fff;
+      line-height: 0.9;
+      word-break: break-all;
+    }
+    .v4 .focus .small-bot {
+      font-size: 18px;
+      font-weight: 400;
+      text-transform: uppercase;
+      letter-spacing: 0.3em;
+      color: #555;
+      margin-top: 12px;
+    }
+    .v4 .focus .big span { color: #ff4c4c; }
+
+    /* ─── 5. DIAGONAL STRIPE ─── */
+    .v5 { background: #0e0e0e; }
+    .v5 .diag-wrap {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+    }
+    .v5 .stripe {
+      position: absolute;
+      width: 160%;
+      height: 160px;
+      background: #00ff88;
+      transform: rotate(-12deg);
+    }
+    .v5 .words {
+      position: relative;
+      z-index: 2;
+      text-align: center;
+      transform: rotate(-12deg);
+    }
+    .v5 .words .line1,
+    .v5 .words .line2 {
+      display: block;
+      font-size: 52px;
+      font-weight: 900;
+      text-transform: uppercase;
+      color: #000;
+      line-height: 1;
+    }
+    .v5 .words .line2 { color: #000; font-size: 44px; }
+    .v5 .bg-text {
+      position: absolute;
+      font-size: 200px;
+      font-weight: 900;
+      color: rgba(255,255,255,0.03);
+      text-transform: uppercase;
+      white-space: nowrap;
+      user-select: none;
+      letter-spacing: -10px;
+    }
+
+    /* ─── 6. GLITCH / HACKER ─── */
+    .v6 { background: #000; }
+    .v6 .glitch-wrap {
+      text-align: center;
+      position: relative;
+      padding: 0 20px;
+    }
+    .v6 .g-label {
+      font-size: 12px;
+      letter-spacing: 0.4em;
+      color: #00ff88;
+      text-transform: uppercase;
+      margin-bottom: 20px;
+      font-family: 'Courier New', monospace;
+    }
+    .v6 .g-word {
+      display: block;
+      font-size: 64px;
+      font-weight: 900;
+      text-transform: uppercase;
+      color: #fff;
+      line-height: 1.05;
+      position: relative;
+    }
+    .v6 .g-word.accent { color: #00ff88; font-size: 72px; }
+    .v6 .g-word::after {
+      content: attr(data-text);
+      position: absolute;
+      left: 2px; top: 0;
+      color: #ff0055;
+      opacity: 0.5;
+      clip-path: polygon(0 20%, 100% 20%, 100% 40%, 0 40%);
+    }
+    .v6 .noise {
+      position: absolute;
+      inset: 0;
+      background-image: repeating-linear-gradient(
+        0deg,
+        transparent,
+        transparent 2px,
+        rgba(0,255,136,0.02) 2px,
+        rgba(0,255,136,0.02) 4px
+      );
+      pointer-events: none;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- 1 -->
+  <h2 class="label">Option 1 — Stacked, growing weight</h2>
+  <div class="frame v1">
+    <div class="accent-line"></div>
+    <div class="stack">
+      <span>Read</span>
+      <span>Binaries</span>
+      <span>Like a</span>
+      <span>Book</span>
+    </div>
+  </div>
+
+  <!-- 2 -->
+  <h2 class="label">Option 2 — Terminal prompt</h2>
+  <div class="frame v2">
+    <div class="terminal">
+      <div class="prompt"><span>$</span> strings /usr/bin/ls</div>
+      <span class="word">Read</span>
+      <span class="word">Binaries</span>
+      <span class="word">Like a</span>
+      <span class="word highlight">Book<span class="cursor"></span></span>
+    </div>
+  </div>
+
+  <!-- 3 -->
+  <h2 class="label">Option 3 — Black / white split</h2>
+  <div class="frame v3">
+    <div class="split">
+      <div class="top-half">
+        <div class="words">Read<br>Binaries</div>
+      </div>
+      <div class="bottom-half">
+        <div class="words">Like a<br><em>Book</em></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 4 -->
+  <h2 class="label">Option 4 — One big word, rest small</h2>
+  <div class="frame v4">
+    <div class="focus">
+      <div class="small">Read Binaries</div>
+      <div class="big">Like<br>a<br><span>Book</span></div>
+      <div class="small-bot">&nbsp;</div>
+    </div>
+  </div>
+
+  <!-- 5 -->
+  <h2 class="label">Option 5 — Diagonal stripe</h2>
+  <div class="frame v5">
+    <div class="bg-text">BIN</div>
+    <div class="diag-wrap">
+      <div class="stripe"></div>
+      <div class="words">
+        <span class="line1">Read Binaries</span>
+        <span class="line2">Like a Book</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- 6 -->
+  <h2 class="label">Option 6 — Glitch / hacker aesthetic</h2>
+  <div class="frame v6">
+    <div class="noise"></div>
+    <div class="glitch-wrap">
+      <div class="g-label">strings · binutils</div>
+      <span class="g-word" data-text="READ">READ</span>
+      <span class="g-word" data-text="BINARIES">BINARIES</span>
+      <span class="g-word" data-text="LIKE A">LIKE A</span>
+      <span class="g-word accent" data-text="BOOK">BOOK</span>
+    </div>
+  </div>
+
+</body>
+</html>
