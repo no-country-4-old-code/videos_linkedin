@@ -2,6 +2,9 @@
 
 ---
 
+## Headline
+Hashcat's Secret Easter Eggs
+
 ## Text
 
 Even hacking tools have a sense of humor.

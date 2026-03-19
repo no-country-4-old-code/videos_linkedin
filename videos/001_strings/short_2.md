@@ -2,6 +2,9 @@
 
 ---
 
+## Headline
+Obfuscation Is Not Enough
+
 ## Text
 
 You obfuscated the password. Good start. Not enough.

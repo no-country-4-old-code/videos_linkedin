@@ -32,6 +32,23 @@ Each `script.md` (and `short_*.md`) must have two separate sections:
 (all screen actions, commands, code snippets)
 ```
 
+For `short_*.md` files, add a `## Headline` section before `## Text`. The headline is a catchy, punchy title of **4–5 words max** used as the video title on social media.
+
+```
+## Short: "..."
+
+---
+
+## Headline
+Four Or Five Words
+
+## Text
+...
+
+## Display / CLI / Code
+...
+```
+
 ## Style Guidelines
 
 - Match the tone and style of existing scripts (direct, humorous, security-focused).

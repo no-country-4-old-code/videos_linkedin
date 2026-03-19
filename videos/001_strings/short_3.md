@@ -2,6 +2,9 @@
 
 ---
 
+## Headline
+Compiled Code Still Leaks
+
 ## Text
 
 A lot of developers think: I compiled the code, the source is gone, the secret is safe.

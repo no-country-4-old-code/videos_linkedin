@@ -2,6 +2,9 @@
 
 ---
 
+## Headline
+Read Binaries Like Books
+
 ## Text
 
 Shipped with binutils comes one of the most useful CLI tools to extract strings from binaries: `strings`.

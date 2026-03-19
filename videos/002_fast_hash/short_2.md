@@ -2,6 +2,9 @@
 
 ---
 
+## Headline
+MD5 Was Too Fast
+
 ## Text
 
 MD5 was designed to be fast. That's the problem.

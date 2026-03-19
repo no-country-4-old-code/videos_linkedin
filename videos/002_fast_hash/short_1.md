@@ -2,6 +2,9 @@
 
 ---
 
+## Headline
+One Tool, 300 Hashes
+
 ## Text
 
 This is hashcat. The world's fastest password recovery tool.

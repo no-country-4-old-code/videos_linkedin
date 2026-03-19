@@ -2,6 +2,9 @@
 
 ---
 
+## Headline
+Your GPU Cracks Passwords
+
 ## Text
 
 Your gaming GPU cracks passwords faster than most supercomputers from 10 years ago.
