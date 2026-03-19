@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Entry Image Options — "Read Binaries Like a Book"</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background: #111;
+      font-family: 'Segoe UI', system-ui, sans-serif;
+      color: #fff;
+      padding: 40px 20px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 60px;
+    }
+
+    h2.label {
+      font-size: 12px;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: #555;
+      margin-bottom: 10px;
+      text-align: center;
+    }
+
+    /* 9:16 frame */
+    .frame {
+      width: 360px;
+      height: 640px;
+      position: relative;
+      overflow: hidden;
+      border-radius: 16px;
+      border: 1px solid #333;
+    }
+
+    /* Ubuntu background — cropped from center for vertical */
+    .bg {
+      position: absolute;
+      inset: 0;
+      background-image: url('../../../../warty-final-ubuntu.png');
+      background-size: cover;
+      background-position: center center;
+    }
+
+    /* bottom 1/3 overlay zone indicator */
+    .person-zone {
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      height: 213px; /* 1/3 of 640 */
+      background: rgba(0,0,0,0.25);
+      border-top: 2px dashed rgba(255,255,255,0.15);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .person-zone span {
+      font-size: 11px;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.3);
+    }
+
+    /* title area: upper 2/3 */
+    .title-area {
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 427px; /* 2/3 of 640 */
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    /* Ubuntu brand colors */
+    /* Orange: #E95420 | Aubergine: #77216F | Warm: #E0B68E */
+
+
+    /* ─── 1. BOLD DROP-SHADOW, left-aligned ─── */
+    .v1 .title-area {
+      padding: 0 28px;
+      justify-content: flex-end;
+      padding-bottom: 32px;
+    }
+    .v1 .word {
+      display: block;
+      font-size: 72px;
+      font-weight: 900;
+      text-transform: uppercase;
+      color: #fff;
+      line-height: 0.95;
+      text-shadow: 3px 3px 0 rgba(0,0,0,0.6), 0 0 40px rgba(0,0,0,0.8);
+    }
+    .v1 .word.accent { color: #E95420; }
+    .v1 .bg { filter: brightness(0.65) saturate(1.2); }
+
+
+    /* ─── 2. CARD behind text, centered ─── */
+    .v2 .title-area {
+      padding: 40px 24px 0;
+      justify-content: flex-start;
+      align-items: center;
+    }
+    .v2 .card {
+      background: rgba(0,0,0,0.72);
+      backdrop-filter: blur(4px);
+      border-left: 5px solid #E95420;
+      border-radius: 4px;
+      padding: 20px 24px;
+      width: 100%;
+    }
+    .v2 .card .small {
+      font-size: 11px;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: #E95420;
+      margin-bottom: 10px;
+    }
+    .v2 .card .word {
+      display: block;
+      font-size: 60px;
+      font-weight: 900;
+      text-transform: uppercase;
+      color: #fff;
+      line-height: 0.95;
+    }
+    .v2 .card .word.dim { color: #aaa; font-size: 50px; }
+
+
+    /* ─── 3. OUTLINE + FILLED contrast mix ─── */
+    .v3 .bg { filter: brightness(0.5) saturate(0.8); }
+    .v3 .title-area {
+      padding: 0 28px;
+      justify-content: center;
+      gap: 0;
+    }
+    .v3 .word {
+      display: block;
+      font-size: 78px;
+      font-weight: 900;
+      text-transform: uppercase;
+      line-height: 0.95;
+      color: transparent;
+      -webkit-text-stroke: 2px #fff;
+      letter-spacing: -1px;
+    }
+    .v3 .word.filled {
+      color: #E95420;
+      -webkit-text-stroke: 0;
+      font-size: 88px;
+    }
+    .v3 .word.filled2 {
+      color: #fff;
+      -webkit-text-stroke: 0;
+    }
+
+
+    /* ─── 4. TOP-ANCHORED, Ubuntu orange bar ─── */
+    .v4 .bg { filter: brightness(0.7); }
+    .v4 .title-area {
+      padding: 36px 0 0 0;
+      justify-content: flex-start;
+      align-items: flex-start;
+    }
+    .v4 .bar {
+      width: 6px;
+      height: 220px;
+      background: #E95420;
+      position: absolute;
+      left: 28px;
+      top: 36px;
+    }
+    .v4 .words {
+      padding-left: 52px;
+      padding-right: 20px;
+    }
+    .v4 .word {
+      display: block;
+      font-size: 66px;
+      font-weight: 900;
+      text-transform: uppercase;
+      color: #fff;
+      line-height: 1;
+      text-shadow: 2px 2px 12px rgba(0,0,0,0.9);
+    }
+    .v4 .word.sub {
+      font-size: 40px;
+      font-weight: 400;
+      color: #E0B68E;
+      letter-spacing: 0.05em;
+    }
+    .v4 .word.big { font-size: 86px; color: #E95420; }
+
+
+    /* ─── 5. FULL-WIDTH BAND across middle of upper zone ─── */
+    .v5 .bg { filter: brightness(0.6) saturate(1.3); }
+    .v5 .band {
+      position: absolute;
+      top: 130px;
+      left: 0; right: 0;
+      background: rgba(233, 84, 32, 0.92);
+      padding: 16px 28px;
+    }
+    .v5 .band .word {
+      display: block;
+      font-size: 68px;
+      font-weight: 900;
+      text-transform: uppercase;
+      color: #fff;
+      line-height: 0.95;
+    }
+    .v5 .above-band {
+      position: absolute;
+      top: 60px; left: 28px;
+      font-size: 14px;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.7);
+    }
+    .v5 .below-band {
+      position: absolute;
+      top: 370px; left: 28px;
+      font-size: 14px;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.5);
+    }
+
+
+    /* ─── 6. HUGE BACKGROUND WORD + small foreground ─── */
+    .v6 .bg { filter: brightness(0.45) saturate(1.4); }
+    .v6 .ghost {
+      position: absolute;
+      top: 20px; left: -10px; right: 0;
+      font-size: 180px;
+      font-weight: 900;
+      text-transform: uppercase;
+      color: transparent;
+      -webkit-text-stroke: 1px rgba(255,255,255,0.08);
+      line-height: 0.85;
+      user-select: none;
+      letter-spacing: -8px;
+      word-break: break-all;
+    }
+    .v6 .title-area {
+      padding: 0 28px;
+      justify-content: center;
+    }
+    .v6 .label-top {
+      font-size: 12px;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: #E95420;
+      margin-bottom: 14px;
+    }
+    .v6 .word {
+      display: block;
+      font-size: 72px;
+      font-weight: 900;
+      text-transform: uppercase;
+      color: #fff;
+      line-height: 0.95;
+      text-shadow: 0 0 60px rgba(233,84,32,0.5);
+    }
+    .v6 .word.orange { color: #E95420; }
+  </style>
+</head>
+<body>
+
+  <!-- 1 -->
+  <h2 class="label">Option 1 — Bold drop-shadow, bottom-aligned</h2>
+  <div class="frame v1">
+    <div class="bg"></div>
+    <div class="title-area">
+      <span class="word">Read</span>
+      <span class="word">Binaries</span>
+      <span class="word">Like a</span>
+      <span class="word accent">Book</span>
+    </div>
+    <div class="person-zone"><span>your overlay</span></div>
+  </div>
+
+  <!-- 2 -->
+  <h2 class="label">Option 2 — Dark card, top-anchored</h2>
+  <div class="frame v2">
+    <div class="bg"></div>
+    <div class="title-area">
+      <div class="card">
+        <div class="small">strings · binutils</div>
+        <span class="word dim">Read</span>
+        <span class="word">Binaries</span>
+        <span class="word dim">Like a</span>
+        <span class="word">Book</span>
+      </div>
+    </div>
+    <div class="person-zone"><span>your overlay</span></div>
+  </div>
+
+  <!-- 3 -->
+  <h2 class="label">Option 3 — Outline / filled contrast</h2>
+  <div class="frame v3">
+    <div class="bg"></div>
+    <div class="title-area">
+      <span class="word">Read</span>
+      <span class="word filled">Bin-</span>
+      <span class="word filled2">aries</span>
+      <span class="word">Like a</span>
+      <span class="word filled">Book</span>
+    </div>
+    <div class="person-zone"><span>your overlay</span></div>
+  </div>
+
+  <!-- 4 -->
+  <h2 class="label">Option 4 — Orange sidebar bar, top</h2>
+  <div class="frame v4">
+    <div class="bg"></div>
+    <div class="title-area">
+      <div class="bar"></div>
+      <div class="words">
+        <span class="word sub">Read</span>
+        <span class="word">Binaries</span>
+        <span class="word sub">Like a</span>
+        <span class="word big">Book</span>
+      </div>
+    </div>
+    <div class="person-zone"><span>your overlay</span></div>
+  </div>
+
+  <!-- 5 -->
+  <h2 class="label">Option 5 — Full-width orange band</h2>
+  <div class="frame v5">
+    <div class="bg"></div>
+    <div class="above-band">strings · binutils</div>
+    <div class="band">
+      <span class="word">Read</span>
+      <span class="word">Binaries</span>
+      <span class="word">Like a</span>
+      <span class="word">Book</span>
+    </div>
+    <div class="below-band">&nbsp;</div>
+    <div class="person-zone"><span>your overlay</span></div>
+  </div>
+
+  <!-- 6 -->
+  <h2 class="label">Option 6 — Ghost text background</h2>
+  <div class="frame v6">
+    <div class="bg"></div>
+    <div class="ghost">READ BIN</div>
+    <div class="title-area">
+      <div class="label-top">strings · binutils</div>
+      <span class="word">Read</span>
+      <span class="word">Binaries</span>
+      <span class="word">Like a</span>
+      <span class="word orange">Book</span>
+    </div>
+    <div class="person-zone"><span>your overlay</span></div>
+  </div>
+
+</body>
+</html>
