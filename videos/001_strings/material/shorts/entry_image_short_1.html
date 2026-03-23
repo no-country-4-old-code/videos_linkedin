@@ -113,29 +113,35 @@
     .v3 .word.filled  { color: #00FF41; -webkit-text-stroke: 0; font-size: 70px; }
     .v3 .word.filled2 { color: #4A9EFF; -webkit-text-stroke: 0; }
 
-    /* ─── 4. SIDEBAR BAR — blue bar, green accent ─── */
+    /* ─── 4. COLOR BLOCK SPLIT — TikTok duotone ─── */
+    /* Top of title-area is dark navy; bottom is black.
+       A bright 3px line marks the split.
+       4 words × 64px × 0.95 = 243px; centered in 320px → starts at y≈38px.
+       Split at y=168px bisects the stack between words 2 and 3. */
     .v4 { background: #000; }
-    .v4 .title-area { padding: 36px 0 0 0; justify-content: flex-start; align-items: flex-start; }
-    .v4 .bar {
-      width: 5px; height: 200px;
-      background: #4A9EFF;
+    .v4 .color-block {
       position: absolute;
-      left: 28px; top: 36px;
+      top: 0; left: 0; right: 0;
+      height: 168px;
+      background: #0d1f35;
     }
-    /* Sidebar padding-left 52px + padding-right 20px → 288px available
-       SECRETS@56px: 7 × 0.62 × 56 = 243px ✓
-       SECRETS@.big 66px: 7 × 0.62 × 66 = 286px ✓ */
-    .v4 .words { padding-left: 52px; padding-right: 20px; }
+    .v4 .split-line {
+      position: absolute;
+      top: 168px; left: 0; right: 0;
+      height: 3px;
+      background: #4A9EFF;
+    }
+    .v4 .title-area { padding: 0 28px; justify-content: center; }
+    /* SECRETS@64px: 7 × 0.62 × 64 = 278px ✓ */
     .v4 .word {
       display: block;
-      font-size: 56px;
+      font-size: 64px;
       font-weight: 900;
       text-transform: uppercase;
       color: #fff;
-      line-height: 1;
+      line-height: 0.95;
     }
-    .v4 .word.sub { font-size: 32px; font-weight: 400; color: #415D96; letter-spacing: 0.05em; }
-    .v4 .word.big { font-size: 66px; color: #00FF41; }
+    .v4 .word.accent { color: #4A9EFF; }
 
     /* ─── 5. FULL-WIDTH BAND — red band on black ─── */
     .v5 { background: #000; }
@@ -163,30 +169,11 @@
       line-height: 0.95;
     }
 
-    /* ─── 6. GHOST TEXT — matrix glow ─── */
+    /* ─── 6. NEON GLOW — TikTok cyberpunk ─── */
+    /* Multi-layer text-shadow creates a bloom/halo effect on pure black.
+       Non-accent words glow white-blue; accent word glows matrix green. */
     .v6 { background: #000; }
-    .v6 .ghost {
-      position: absolute;
-      top: 10px; left: -10px; right: 0;
-      font-size: 180px;
-      font-weight: 900;
-      text-transform: uppercase;
-      color: transparent;
-      -webkit-text-stroke: 1px rgba(0,255,65,0.08);
-      line-height: 0.85;
-      user-select: none;
-      letter-spacing: -8px;
-      word-break: break-all;
-    }
     .v6 .title-area { padding: 0 28px; justify-content: center; }
-    .v6 .label-top {
-      font-size: 11px;
-      letter-spacing: 0.35em;
-      text-transform: uppercase;
-      color: #00FF41;
-      margin-bottom: 14px;
-      opacity: 0.7;
-    }
     /* SECRETS@64px: 7 × 0.62 × 64 = 278px ✓ */
     .v6 .word {
       display: block;
@@ -195,9 +182,19 @@
       text-transform: uppercase;
       color: #fff;
       line-height: 0.95;
-      text-shadow: 0 0 30px rgba(0,255,65,0.35);
+      text-shadow:
+        0 0 8px rgba(255,255,255,0.9),
+        0 0 25px rgba(74,158,255,0.55),
+        0 0 60px rgba(74,158,255,0.2);
     }
-    .v6 .word.green { color: #00FF41; text-shadow: 0 0 40px rgba(0,255,65,0.7); }
+    .v6 .word.neon {
+      color: #00FF41;
+      text-shadow:
+        0 0 8px #00FF41,
+        0 0 20px #00FF41,
+        0 0 55px rgba(0,255,65,0.7),
+        0 0 110px rgba(0,255,65,0.3);
+    }
   </style>
 </head>
 <body>
@@ -235,16 +232,15 @@
     </div>
   </div>
 
-  <h2 class="label">Option 4 — Blue sidebar bar, green accent</h2>
+  <h2 class="label">Option 4 — Color block split</h2>
   <div class="frame v4">
+    <div class="color-block"></div>
+    <div class="split-line"></div>
     <div class="title-area">
-      <div class="bar"></div>
-      <div class="words">
-        <span class="word sub">Every</span>
-        <span class="word">File</span>
-        <span class="word sub">Spills</span>
-        <span class="word big">Secrets</span>
-      </div>
+      <span class="word">Every</span>
+      <span class="word">File</span>
+      <span class="word">Spills</span>
+      <span class="word accent">Secrets</span>
     </div>
   </div>
 
@@ -259,15 +255,13 @@
     </div>
   </div>
 
-  <h2 class="label">Option 6 — Ghost text, matrix glow</h2>
+  <h2 class="label">Option 6 — Neon glow</h2>
   <div class="frame v6">
-    <div class="ghost">FILE SEC</div>
     <div class="title-area">
-      <div class="label-top">strings · binutils</div>
       <span class="word">Every</span>
       <span class="word">File</span>
       <span class="word">Spills</span>
-      <span class="word green">Secrets</span>
+      <span class="word neon">Secrets</span>
     </div>
   </div>
 

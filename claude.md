@@ -85,9 +85,9 @@ Each file shows **6 layout variants** of the short's headline as a 9:16 thumbnai
 1. **Bold** — large stacked words, accent color on last word.
 2. **Card** — dark card (`#0a0a0a`) with colored left border, label above words.
 3. **Outline + filled** — outline stroked words mixed with solid-color filled words.
-4. **Sidebar bar** — thin vertical colored bar on the left, words stacked to the right.
+4. **Color block split** — upper portion of the frame filled with a dark colored block (`#0d1f35`), a bright 3px accent line at the boundary, black below. Text stacks centered and flows naturally across the split. High-contrast, modern social-media energy.
 5. **Full-width band** — solid color band spanning full width, white text inside.
-6. **Ghost text** — faint oversized text in background, normal-sized headline in foreground with glow.
+6. **Neon glow** — pure black with intense multi-layer `text-shadow` bloom on each word (white-blue on regular words, matrix green on accent word). Cyberpunk/hacker aesthetic that grabs attention on dark feeds.
 
 Use `entry_image_short_1.html` in `videos/001_strings/material/shorts/` as the reference implementation.
 | `[r]` | Ignore. |
