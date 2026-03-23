@@ -34,17 +34,9 @@
       overflow: hidden;
       border-radius: 16px;
       border: 1px solid #333;
+      background: #000;
     }
 
-    .bg {
-      position: absolute;
-      inset: 0;
-      background-image: url('../../../../jammy_jellyfish_grey.jpg');
-      background-size: cover;
-      background-position: center center;
-    }
-
-    /* Text lives in the upper half only */
     .title-area {
       position: absolute;
       top: 0; left: 0; right: 0;
@@ -55,9 +47,12 @@
       justify-content: center;
     }
 
-    /* Longest word: "Binaries" (8 chars) → base font 58px */
+    /*
+      Longest word: BINARIES (8 chars)
+      Available: 304px → max font 304/(8×0.62) ≈ 61px → use 58px
+    */
 
-    /* ─── 1. BOLD DROP-SHADOW ─── */
+    /* ─── 1. BOLD ─── */
     .v1 .title-area { padding: 0 28px; justify-content: center; }
     .v1 .word {
       display: block;
@@ -66,17 +61,15 @@
       text-transform: uppercase;
       color: #fff;
       line-height: 0.95;
-      text-shadow: 3px 3px 0 rgba(0,0,0,0.7), 0 0 40px rgba(0,0,0,0.9);
     }
-    .v1 .word.accent { color: #008F11; }
-    .v1 .bg { filter: brightness(0.6) saturate(0.5); }
+    .v1 .word.accent { color: #00FF41; }
 
     /* ─── 2. CARD ─── */
     .v2 .title-area { padding: 32px 24px 0; justify-content: flex-start; align-items: center; }
     .v2 .card {
-      background: rgba(0,0,0,0.75);
-      backdrop-filter: blur(6px);
-      border-left: 5px solid #008F11;
+      background: #0a0a0a;
+      border: 1px solid #1a1a1a;
+      border-left: 5px solid #00FF41;
       border-radius: 4px;
       padding: 20px 24px;
       width: 100%;
@@ -85,7 +78,7 @@
       font-size: 11px;
       letter-spacing: 0.3em;
       text-transform: uppercase;
-      color: #008F11;
+      color: #00FF41;
       margin-bottom: 10px;
     }
     .v2 .card .word {
@@ -96,10 +89,9 @@
       color: #fff;
       line-height: 0.95;
     }
-    .v2 .card .word.dim { color: #aaa; font-size: 44px; }
+    .v2 .card .word.dim { color: #555; font-size: 44px; }
 
     /* ─── 3. OUTLINE + FILLED ─── */
-    .v3 .bg { filter: brightness(0.45) saturate(0.5); }
     .v3 .title-area { padding: 0 28px; justify-content: center; }
     .v3 .word {
       display: block;
@@ -110,79 +102,63 @@
       color: transparent;
       -webkit-text-stroke: 2px #fff;
     }
-    .v3 .word.filled { color: #008F11; -webkit-text-stroke: 0; font-size: 68px; }
-    .v3 .word.filled2 { color: #fff; -webkit-text-stroke: 0; }
+    /* BINARIES@58px filled: 8×0.62×58=288px ✓ */
+    .v3 .word.filled  { color: #00FF41; -webkit-text-stroke: 0; }
+    .v3 .word.filled2 { color: #4A9EFF; -webkit-text-stroke: 0; }
 
-    /* ─── 4. ORANGE SIDEBAR BAR ─── */
-    .v4 .bg { filter: brightness(0.55) saturate(0.5); }
-    .v4 .title-area { padding: 36px 0 0 0; justify-content: flex-start; align-items: flex-start; }
-    .v4 .bar {
-      width: 6px; height: 200px;
-      background: #008F11;
+    /* ─── 4. COLOR BLOCK SPLIT ─── */
+    /* 4 words × 58px × 0.95 = 220px; centered → starts at y≈50px
+       Split at 168px falls between word 2 (ends y≈160) and word 3 */
+    .v4 .color-block {
       position: absolute;
-      left: 28px; top: 36px;
+      top: 0; left: 0; right: 0;
+      height: 168px;
+      background: #0d1f35;
     }
-    .v4 .words { padding-left: 52px; padding-right: 20px; }
+    .v4 .split-line {
+      position: absolute;
+      top: 168px; left: 0; right: 0;
+      height: 3px;
+      background: #4A9EFF;
+    }
+    .v4 .title-area { padding: 0 28px; justify-content: center; }
     .v4 .word {
       display: block;
-      font-size: 54px;
+      font-size: 58px;
       font-weight: 900;
       text-transform: uppercase;
       color: #fff;
-      line-height: 1;
-      text-shadow: 2px 2px 12px rgba(0,0,0,0.9);
+      line-height: 0.95;
     }
-    .v4 .word.sub { font-size: 34px; font-weight: 400; color: #415D96; letter-spacing: 0.05em; }
-    .v4 .word.big { font-size: 72px; color: #008F11; }
+    .v4 .word.accent { color: #4A9EFF; }
 
     /* ─── 5. FULL-WIDTH BAND ─── */
-    .v5 .bg { filter: brightness(0.5) saturate(0.5); }
     .v5 .above-band {
       position: absolute;
       top: 8px; left: 28px;
       font-size: 12px;
       letter-spacing: 0.25em;
       text-transform: uppercase;
-      color: rgba(255,255,255,0.6);
+      color: #444;
     }
     .v5 .band {
       position: absolute;
       top: 34px; left: 0; right: 0;
-      background: rgba(0, 143, 17, 0.92);
+      background: #009914;
       padding: 14px 28px;
     }
+    /* BINARIES@54px: 8×0.62×54=268px ✓ */
     .v5 .band .word {
       display: block;
-      font-size: 56px;
+      font-size: 54px;
       font-weight: 900;
       text-transform: uppercase;
       color: #fff;
       line-height: 0.95;
     }
 
-    /* ─── 6. GHOST TEXT BACKGROUND ─── */
-    .v6 .bg { filter: brightness(0.35) saturate(0.5); }
-    .v6 .ghost {
-      position: absolute;
-      top: 10px; left: -10px; right: 0;
-      font-size: 180px;
-      font-weight: 900;
-      text-transform: uppercase;
-      color: transparent;
-      -webkit-text-stroke: 1px rgba(255,255,255,0.07);
-      line-height: 0.85;
-      user-select: none;
-      letter-spacing: -8px;
-      word-break: break-all;
-    }
+    /* ─── 6. NEON GLOW ─── */
     .v6 .title-area { padding: 0 28px; justify-content: center; }
-    .v6 .label-top {
-      font-size: 12px;
-      letter-spacing: 0.3em;
-      text-transform: uppercase;
-      color: #008F11;
-      margin-bottom: 14px;
-    }
     .v6 .word {
       display: block;
       font-size: 58px;
@@ -190,16 +166,25 @@
       text-transform: uppercase;
       color: #fff;
       line-height: 0.95;
-      text-shadow: 0 0 60px rgba(0,143,17,0.6);
+      text-shadow:
+        0 0 8px rgba(255,255,255,0.9),
+        0 0 25px rgba(74,158,255,0.55),
+        0 0 60px rgba(74,158,255,0.2);
     }
-    .v6 .word.green { color: #008F11; }
+    .v6 .word.neon {
+      color: #00FF41;
+      text-shadow:
+        0 0 8px #00FF41,
+        0 0 20px #00FF41,
+        0 0 55px rgba(0,255,65,0.7),
+        0 0 110px rgba(0,255,65,0.3);
+    }
   </style>
 </head>
 <body>
 
-  <h2 class="label">Option 1 — Bold drop-shadow</h2>
+  <h2 class="label">Option 1 — Bold, green accent</h2>
   <div class="frame v1">
-    <div class="bg"></div>
     <div class="title-area">
       <span class="word">Read</span>
       <span class="word">Binaries</span>
@@ -210,7 +195,6 @@
 
   <h2 class="label">Option 2 — Dark card</h2>
   <div class="frame v2">
-    <div class="bg"></div>
     <div class="title-area">
       <div class="card">
         <div class="small">strings · binutils</div>
@@ -222,9 +206,8 @@
     </div>
   </div>
 
-  <h2 class="label">Option 3 — Outline / filled contrast</h2>
+  <h2 class="label">Option 3 — Outline / filled</h2>
   <div class="frame v3">
-    <div class="bg"></div>
     <div class="title-area">
       <span class="word">Read</span>
       <span class="word filled">Binaries</span>
@@ -233,23 +216,20 @@
     </div>
   </div>
 
-  <h2 class="label">Option 4 — Green sidebar bar</h2>
+  <h2 class="label">Option 4 — Color block split</h2>
   <div class="frame v4">
-    <div class="bg"></div>
+    <div class="color-block"></div>
+    <div class="split-line"></div>
     <div class="title-area">
-      <div class="bar"></div>
-      <div class="words">
-        <span class="word sub">Read</span>
-        <span class="word">Binaries</span>
-        <span class="word sub">Like a</span>
-        <span class="word big">Book</span>
-      </div>
+      <span class="word">Read</span>
+      <span class="word">Binaries</span>
+      <span class="word">Like a</span>
+      <span class="word accent">Book</span>
     </div>
   </div>
 
   <h2 class="label">Option 5 — Full-width green band</h2>
   <div class="frame v5">
-    <div class="bg"></div>
     <div class="above-band">strings · binutils</div>
     <div class="band">
       <span class="word">Read</span>
@@ -259,16 +239,13 @@
     </div>
   </div>
 
-  <h2 class="label">Option 6 — Ghost text background</h2>
+  <h2 class="label">Option 6 — Neon glow</h2>
   <div class="frame v6">
-    <div class="bg"></div>
-    <div class="ghost">READ BIN</div>
     <div class="title-area">
-      <div class="label-top">strings · binutils</div>
       <span class="word">Read</span>
       <span class="word">Binaries</span>
       <span class="word">Like a</span>
-      <span class="word green">Book</span>
+      <span class="word neon">Book</span>
     </div>
   </div>
 

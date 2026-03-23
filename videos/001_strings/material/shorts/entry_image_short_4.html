@@ -34,14 +34,7 @@
       overflow: hidden;
       border-radius: 16px;
       border: 1px solid #333;
-    }
-
-    .bg {
-      position: absolute;
-      inset: 0;
-      background-image: url('../../../../jammy_jellyfish_grey.jpg');
-      background-size: cover;
-      background-position: center center;
+      background: #000;
     }
 
     .title-area {
@@ -55,14 +48,12 @@
     }
 
     /*
-      "49" is the visual hook — make it enormous.
-      Other words: "SSH's" (5), "Fake" (4), "Emails" (6) — all short, can be big.
-      Layout: SSH's + 49 huge + Fake Emails.
-      "49" at 130px, others at 56px:
-        56×0.95 + 130×0.95 + 56×0.95 = 53.2 + 123.5 + 53.2 = 229.9px — fits in 320px.
+      "49" is the visual hook — oversized.
+      SSH's(5), Fake(4), Emails(6) → short, fit at 56px.
+      Layout height: SSH's(53) + 49(117) + Fake(53) + Emails(53) = 276px → centered, starts y≈22px
     */
 
-    /* ─── 1. BOLD DROP-SHADOW ─── */
+    /* ─── 1. BOLD ─── */
     .v1 .title-area { padding: 0 28px; justify-content: center; }
     .v1 .word {
       display: block;
@@ -71,18 +62,16 @@
       text-transform: uppercase;
       color: #fff;
       line-height: 0.95;
-      text-shadow: 3px 3px 0 rgba(0,0,0,0.7), 0 0 40px rgba(0,0,0,0.9);
     }
-    .v1 .word.num { font-size: 130px; color: #008F11; line-height: 0.9; }
-    .v1 .word.accent { color: #008F11; }
-    .v1 .bg { filter: brightness(0.6) saturate(0.5); }
+    .v1 .word.num    { font-size: 130px; color: #00FF41; line-height: 0.9; }
+    .v1 .word.accent { color: #00FF41; }
 
     /* ─── 2. CARD ─── */
     .v2 .title-area { padding: 32px 24px 0; justify-content: flex-start; align-items: center; }
     .v2 .card {
-      background: rgba(0,0,0,0.75);
-      backdrop-filter: blur(6px);
-      border-left: 5px solid #008F11;
+      background: #0a0a0a;
+      border: 1px solid #1a1a1a;
+      border-left: 5px solid #00FF41;
       border-radius: 4px;
       padding: 16px 24px;
       width: 100%;
@@ -91,7 +80,7 @@
       font-size: 11px;
       letter-spacing: 0.3em;
       text-transform: uppercase;
-      color: #008F11;
+      color: #00FF41;
       margin-bottom: 8px;
     }
     .v2 .card .word {
@@ -102,11 +91,10 @@
       color: #fff;
       line-height: 0.95;
     }
-    .v2 .card .word.num { font-size: 100px; color: #008F11; line-height: 0.88; }
-    .v2 .card .word.dim { color: #aaa; }
+    .v2 .card .word.num { font-size: 100px; color: #00FF41; line-height: 0.88; }
+    .v2 .card .word.dim { color: #555; }
 
     /* ─── 3. OUTLINE + FILLED ─── */
-    .v3 .bg { filter: brightness(0.45) saturate(0.5); }
     .v3 .title-area { padding: 0 28px; justify-content: center; }
     .v3 .word {
       display: block;
@@ -117,46 +105,50 @@
       color: transparent;
       -webkit-text-stroke: 2px #fff;
     }
-    .v3 .word.num { color: #008F11; -webkit-text-stroke: 0; font-size: 130px; line-height: 0.9; }
-    .v3 .word.filled { color: #008F11; -webkit-text-stroke: 0; font-size: 66px; }
-    .v3 .word.filled2 { color: #fff; -webkit-text-stroke: 0; }
+    .v3 .word.num    { color: #00FF41; -webkit-text-stroke: 0; font-size: 130px; line-height: 0.9; }
+    .v3 .word.filled  { color: #00FF41; -webkit-text-stroke: 0; }
+    .v3 .word.filled2 { color: #4A9EFF; -webkit-text-stroke: 0; }
 
-    /* ─── 4. SIDEBAR BAR ─── */
-    .v4 .bg { filter: brightness(0.55) saturate(0.5); }
-    .v4 .title-area { padding: 36px 0 0 0; justify-content: flex-start; align-items: flex-start; }
-    .v4 .bar {
-      width: 6px; height: 200px;
-      background: #008F11;
+    /* ─── 4. COLOR BLOCK SPLIT ─── */
+    /* SSH's starts y≈22px, ends y≈75px. Split at 80px: right after SSH's.
+       "49" (130px tall) starts just below the split line — very dramatic. */
+    .v4 .color-block {
       position: absolute;
-      left: 28px; top: 36px;
+      top: 0; left: 0; right: 0;
+      height: 80px;
+      background: #0d1f35;
     }
-    .v4 .words { padding-left: 52px; padding-right: 20px; }
+    .v4 .split-line {
+      position: absolute;
+      top: 80px; left: 0; right: 0;
+      height: 3px;
+      background: #4A9EFF;
+    }
+    .v4 .title-area { padding: 0 28px; justify-content: center; }
     .v4 .word {
       display: block;
-      font-size: 54px;
+      font-size: 56px;
       font-weight: 900;
       text-transform: uppercase;
       color: #fff;
-      line-height: 1;
-      text-shadow: 2px 2px 12px rgba(0,0,0,0.9);
+      line-height: 0.95;
     }
-    .v4 .word.sub { font-size: 34px; font-weight: 400; color: #415D96; letter-spacing: 0.05em; }
-    .v4 .word.num { font-size: 100px; color: #008F11; line-height: 0.88; }
+    .v4 .word.num    { font-size: 130px; color: #4A9EFF; line-height: 0.9; }
+    .v4 .word.accent { color: #4A9EFF; }
 
     /* ─── 5. FULL-WIDTH BAND ─── */
-    .v5 .bg { filter: brightness(0.5) saturate(0.5); }
     .v5 .above-band {
       position: absolute;
       top: 8px; left: 28px;
       font-size: 12px;
       letter-spacing: 0.25em;
       text-transform: uppercase;
-      color: rgba(255,255,255,0.6);
+      color: #444;
     }
     .v5 .band {
       position: absolute;
       top: 34px; left: 0; right: 0;
-      background: rgba(0, 143, 17, 0.92);
+      background: #009914;
       padding: 14px 28px;
     }
     .v5 .band .word {
@@ -169,29 +161,8 @@
     }
     .v5 .band .word.num { font-size: 88px; line-height: 0.88; }
 
-    /* ─── 6. GHOST TEXT ─── */
-    .v6 .bg { filter: brightness(0.35) saturate(0.5); }
-    .v6 .ghost {
-      position: absolute;
-      top: 10px; left: -10px; right: 0;
-      font-size: 180px;
-      font-weight: 900;
-      text-transform: uppercase;
-      color: transparent;
-      -webkit-text-stroke: 1px rgba(255,255,255,0.07);
-      line-height: 0.85;
-      user-select: none;
-      letter-spacing: -8px;
-      word-break: break-all;
-    }
+    /* ─── 6. NEON GLOW ─── */
     .v6 .title-area { padding: 0 28px; justify-content: center; }
-    .v6 .label-top {
-      font-size: 12px;
-      letter-spacing: 0.3em;
-      text-transform: uppercase;
-      color: #008F11;
-      margin-bottom: 6px;
-    }
     .v6 .word {
       display: block;
       font-size: 56px;
@@ -199,17 +170,35 @@
       text-transform: uppercase;
       color: #fff;
       line-height: 0.95;
-      text-shadow: 0 0 60px rgba(0,143,17,0.6);
+      text-shadow:
+        0 0 8px rgba(255,255,255,0.9),
+        0 0 25px rgba(74,158,255,0.55),
+        0 0 60px rgba(74,158,255,0.2);
     }
-    .v6 .word.num { font-size: 120px; color: #008F11; line-height: 0.9; }
-    .v6 .word.green { color: #008F11; }
+    .v6 .word.num {
+      font-size: 130px;
+      line-height: 0.9;
+      color: #4A9EFF;
+      text-shadow:
+        0 0 10px #4A9EFF,
+        0 0 30px #4A9EFF,
+        0 0 70px rgba(74,158,255,0.7),
+        0 0 130px rgba(74,158,255,0.3);
+    }
+    .v6 .word.neon {
+      color: #00FF41;
+      text-shadow:
+        0 0 8px #00FF41,
+        0 0 20px #00FF41,
+        0 0 55px rgba(0,255,65,0.7),
+        0 0 110px rgba(0,255,65,0.3);
+    }
   </style>
 </head>
 <body>
 
-  <h2 class="label">Option 1 — Bold drop-shadow</h2>
+  <h2 class="label">Option 1 — Bold, number focal point</h2>
   <div class="frame v1">
-    <div class="bg"></div>
     <div class="title-area">
       <span class="word">SSH's</span>
       <span class="word num">49</span>
@@ -220,7 +209,6 @@
 
   <h2 class="label">Option 2 — Dark card</h2>
   <div class="frame v2">
-    <div class="bg"></div>
     <div class="title-area">
       <div class="card">
         <div class="small">strings · openssh</div>
@@ -231,9 +219,8 @@
     </div>
   </div>
 
-  <h2 class="label">Option 3 — Outline / filled contrast</h2>
+  <h2 class="label">Option 3 — Outline / filled</h2>
   <div class="frame v3">
-    <div class="bg"></div>
     <div class="title-area">
       <span class="word">SSH's</span>
       <span class="word num">49</span>
@@ -242,22 +229,20 @@
     </div>
   </div>
 
-  <h2 class="label">Option 4 — Green sidebar bar</h2>
+  <h2 class="label">Option 4 — Color block split</h2>
   <div class="frame v4">
-    <div class="bg"></div>
+    <div class="color-block"></div>
+    <div class="split-line"></div>
     <div class="title-area">
-      <div class="bar"></div>
-      <div class="words">
-        <span class="word sub">SSH's</span>
-        <span class="word num">49</span>
-        <span class="word sub">Fake Emails</span>
-      </div>
+      <span class="word">SSH's</span>
+      <span class="word num">49</span>
+      <span class="word">Fake</span>
+      <span class="word accent">Emails</span>
     </div>
   </div>
 
   <h2 class="label">Option 5 — Full-width green band</h2>
   <div class="frame v5">
-    <div class="bg"></div>
     <div class="above-band">strings · openssh</div>
     <div class="band">
       <span class="word">SSH's</span>
@@ -267,16 +252,13 @@
     </div>
   </div>
 
-  <h2 class="label">Option 6 — Ghost text background</h2>
+  <h2 class="label">Option 6 — Neon glow</h2>
   <div class="frame v6">
-    <div class="bg"></div>
-    <div class="ghost">SSH 49</div>
     <div class="title-area">
-      <div class="label-top">strings · openssh</div>
       <span class="word">SSH's</span>
       <span class="word num">49</span>
       <span class="word">Fake</span>
-      <span class="word green">Emails</span>
+      <span class="word neon">Emails</span>
     </div>
   </div>
 
