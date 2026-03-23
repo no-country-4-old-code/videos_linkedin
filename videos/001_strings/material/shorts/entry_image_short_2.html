@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Entry Image — short_2 "Obfuscation Is Not Enough"</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background: #111;
+      font-family: 'Segoe UI', system-ui, sans-serif;
+      color: #fff;
+      padding: 40px 20px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 60px;
+    }
+
+    h2.label {
+      font-size: 12px;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: #555;
+      margin-bottom: 10px;
+      text-align: center;
+    }
+
+    .frame {
+      width: 360px;
+      height: 640px;
+      position: relative;
+      overflow: hidden;
+      border-radius: 16px;
+      border: 1px solid #333;
+    }
+
+    .bg {
+      position: absolute;
+      inset: 0;
+      background-image: url('../../../../jammy_jellyfish_grey.jpg');
+      background-size: cover;
+      background-position: center center;
+    }
+
+    .title-area {
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 320px;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    /*
+      "Obfuscation" is 11 chars — too wide at large sizes.
+      Design: "Obfuscation" is the small context word; "IS NOT ENOUGH" is the punchline.
+      .word.ctx  → 30px, muted
+      .word       → 76px (fits for "ENOUGH" 6 chars: 6×0.62×76 = 283px ✓)
+    */
+
+    /* ─── 1. BOLD DROP-SHADOW ─── */
+    .v1 .title-area { padding: 0 28px; justify-content: center; }
+    .v1 .word {
+      display: block;
+      font-size: 76px;
+      font-weight: 900;
+      text-transform: uppercase;
+      color: #fff;
+      line-height: 0.97;
+      text-shadow: 3px 3px 0 rgba(0,0,0,0.7), 0 0 40px rgba(0,0,0,0.9);
+    }
+    .v1 .word.ctx {
+      font-size: 28px;
+      font-weight: 400;
+      color: #415D96;
+      letter-spacing: 0.08em;
+      line-height: 1.4;
+    }
+    .v1 .word.accent { color: #008F11; }
+    .v1 .bg { filter: brightness(0.6) saturate(0.5); }
+
+    /* ─── 2. CARD ─── */
+    .v2 .title-area { padding: 32px 24px 0; justify-content: flex-start; align-items: center; }
+    .v2 .card {
+      background: rgba(0,0,0,0.75);
+      backdrop-filter: blur(6px);
+      border-left: 5px solid #008F11;
+      border-radius: 4px;
+      padding: 20px 24px;
+      width: 100%;
+    }
+    .v2 .card .small {
+      font-size: 11px;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: #008F11;
+      margin-bottom: 10px;
+    }
+    .v2 .card .word {
+      display: block;
+      font-size: 66px;
+      font-weight: 900;
+      text-transform: uppercase;
+      color: #fff;
+      line-height: 0.95;
+    }
+    .v2 .card .word.ctx {
+      font-size: 22px;
+      font-weight: 400;
+      color: #415D96;
+      letter-spacing: 0.08em;
+      line-height: 1.6;
+    }
+
+    /* ─── 3. OUTLINE + FILLED ─── */
+    .v3 .bg { filter: brightness(0.45) saturate(0.5); }
+    .v3 .title-area { padding: 0 28px; justify-content: center; }
+    .v3 .word {
+      display: block;
+      font-size: 76px;
+      font-weight: 900;
+      text-transform: uppercase;
+      line-height: 0.97;
+      color: transparent;
+      -webkit-text-stroke: 2px #fff;
+    }
+    .v3 .word.ctx {
+      font-size: 26px;
+      font-weight: 400;
+      color: #415D96;
+      -webkit-text-stroke: 0;
+      letter-spacing: 0.08em;
+      line-height: 1.6;
+    }
+    .v3 .word.filled { color: #008F11; -webkit-text-stroke: 0; font-size: 86px; }
+    .v3 .word.filled2 { color: #fff; -webkit-text-stroke: 0; }
+
+    /* ─── 4. SIDEBAR BAR ─── */
+    .v4 .bg { filter: brightness(0.55) saturate(0.5); }
+    .v4 .title-area { padding: 36px 0 0 0; justify-content: flex-start; align-items: flex-start; }
+    .v4 .bar {
+      width: 6px; height: 200px;
+      background: #008F11;
+      position: absolute;
+      left: 28px; top: 36px;
+    }
+    .v4 .words { padding-left: 52px; padding-right: 20px; }
+    .v4 .word {
+      display: block;
+      font-size: 66px;
+      font-weight: 900;
+      text-transform: uppercase;
+      color: #fff;
+      line-height: 1;
+      text-shadow: 2px 2px 12px rgba(0,0,0,0.9);
+    }
+    .v4 .word.ctx { font-size: 26px; font-weight: 400; color: #415D96; letter-spacing: 0.08em; }
+    .v4 .word.big { font-size: 82px; color: #008F11; }
+
+    /* ─── 5. FULL-WIDTH BAND ─── */
+    .v5 .bg { filter: brightness(0.5) saturate(0.5); }
+    .v5 .above-band {
+      position: absolute;
+      top: 8px; left: 28px;
+      font-size: 12px;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.6);
+    }
+    .v5 .band {
+      position: absolute;
+      top: 34px; left: 0; right: 0;
+      background: rgba(0, 143, 17, 0.92);
+      padding: 14px 28px;
+    }
+    .v5 .band .word {
+      display: block;
+      font-size: 64px;
+      font-weight: 900;
+      text-transform: uppercase;
+      color: #fff;
+      line-height: 0.95;
+    }
+    /* "Obfuscation" in the band gets a smaller size to fit */
+    .v5 .band .word.long {
+      font-size: 38px;
+      letter-spacing: 0.02em;
+    }
+
+    /* ─── 6. GHOST TEXT ─── */
+    .v6 .bg { filter: brightness(0.35) saturate(0.5); }
+    .v6 .ghost {
+      position: absolute;
+      top: 10px; left: -10px; right: 0;
+      font-size: 160px;
+      font-weight: 900;
+      text-transform: uppercase;
+      color: transparent;
+      -webkit-text-stroke: 1px rgba(255,255,255,0.07);
+      line-height: 0.85;
+      user-select: none;
+      letter-spacing: -8px;
+      word-break: break-all;
+    }
+    .v6 .title-area { padding: 0 28px; justify-content: center; }
+    .v6 .label-top {
+      font-size: 12px;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: #008F11;
+      margin-bottom: 8px;
+    }
+    .v6 .word {
+      display: block;
+      font-size: 76px;
+      font-weight: 900;
+      text-transform: uppercase;
+      color: #fff;
+      line-height: 0.97;
+      text-shadow: 0 0 60px rgba(0,143,17,0.6);
+    }
+    .v6 .word.ctx {
+      font-size: 26px;
+      font-weight: 400;
+      color: #415D96;
+      line-height: 1.6;
+    }
+    .v6 .word.green { color: #008F11; }
+  </style>
+</head>
+<body>
+
+  <h2 class="label">Option 1 — Bold drop-shadow</h2>
+  <div class="frame v1">
+    <div class="bg"></div>
+    <div class="title-area">
+      <span class="word ctx">Obfuscation</span>
+      <span class="word">Is</span>
+      <span class="word">Not</span>
+      <span class="word accent">Enough</span>
+    </div>
+  </div>
+
+  <h2 class="label">Option 2 — Dark card</h2>
+  <div class="frame v2">
+    <div class="bg"></div>
+    <div class="title-area">
+      <div class="card">
+        <div class="small">strings · firmware</div>
+        <span class="word ctx">Obfuscation</span>
+        <span class="word">Is</span>
+        <span class="word">Not</span>
+        <span class="word">Enough</span>
+      </div>
+    </div>
+  </div>
+
+  <h2 class="label">Option 3 — Outline / filled contrast</h2>
+  <div class="frame v3">
+    <div class="bg"></div>
+    <div class="title-area">
+      <span class="word ctx">Obfuscation</span>
+      <span class="word">Is</span>
+      <span class="word filled2">Not</span>
+      <span class="word filled">Enough</span>
+    </div>
+  </div>
+
+  <h2 class="label">Option 4 — Green sidebar bar</h2>
+  <div class="frame v4">
+    <div class="bg"></div>
+    <div class="title-area">
+      <div class="bar"></div>
+      <div class="words">
+        <span class="word ctx">Obfuscation</span>
+        <span class="word">Is Not</span>
+        <span class="word big">Enough</span>
+      </div>
+    </div>
+  </div>
+
+  <h2 class="label">Option 5 — Full-width green band</h2>
+  <div class="frame v5">
+    <div class="bg"></div>
+    <div class="above-band">strings · firmware</div>
+    <div class="band">
+      <span class="word long">Obfuscation</span>
+      <span class="word">Is</span>
+      <span class="word">Not</span>
+      <span class="word">Enough</span>
+    </div>
+  </div>
+
+  <h2 class="label">Option 6 — Ghost text background</h2>
+  <div class="frame v6">
+    <div class="bg"></div>
+    <div class="ghost">OBFUS</div>
+    <div class="title-area">
+      <div class="label-top">strings · firmware</div>
+      <span class="word ctx">Obfuscation</span>
+      <span class="word">Is</span>
+      <span class="word">Not</span>
+      <span class="word green">Enough</span>
+    </div>
+  </div>
+
+</body>
+</html>

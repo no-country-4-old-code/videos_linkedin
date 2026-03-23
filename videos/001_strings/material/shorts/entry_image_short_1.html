@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Entry Image — short_1 "Every File Spills Secrets"</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background: #111;
+      font-family: 'Segoe UI', system-ui, sans-serif;
+      color: #fff;
+      padding: 40px 20px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 60px;
+    }
+
+    h2.label {
+      font-size: 12px;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: #555;
+      margin-bottom: 10px;
+      text-align: center;
+    }
+
+    /* 9:16 frame — pure black background */
+    .frame {
+      width: 360px;
+      height: 640px;
+      position: relative;
+      overflow: hidden;
+      border-radius: 16px;
+      border: 1px solid #333;
+      background: #000;
+    }
+
+    /* Text lives in upper half only */
+    .title-area {
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 320px;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    /*
+      Longest word: SECRETS (7 chars)
+      Available width: 360 - 28*2 = 304px
+      Width estimate: chars × 0.62 × font-size
+      Max safe font: 304 / (7 × 0.62) ≈ 70px
+    */
+
+    /* ─── 1. BOLD, left-aligned, matrix green accent ─── */
+    .v1 { background: #000; }
+    .v1 .title-area { padding: 0 28px; justify-content: center; }
+    .v1 .word {
+      display: block;
+      font-size: 64px;
+      font-weight: 900;
+      text-transform: uppercase;
+      color: #fff;
+      line-height: 0.95;
+    }
+    .v1 .word.accent { color: #00FF41; }
+
+    /* ─── 2. CARD on black, green border ─── */
+    .v2 { background: #000; }
+    .v2 .title-area { padding: 32px 24px 0; justify-content: flex-start; align-items: center; }
+    .v2 .card {
+      background: #0a0a0a;
+      border: 1px solid #1a1a1a;
+      border-left: 5px solid #00FF41;
+      border-radius: 4px;
+      padding: 20px 24px;
+      width: 100%;
+    }
+    .v2 .card .small {
+      font-size: 11px;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: #00FF41;
+      margin-bottom: 10px;
+    }
+    .v2 .card .word {
+      display: block;
+      font-size: 56px;
+      font-weight: 900;
+      text-transform: uppercase;
+      color: #fff;
+      line-height: 0.95;
+    }
+    .v2 .card .word.dim { color: #555; font-size: 48px; }
+
+    /* ─── 3. OUTLINE + FILLED — blue/green contrast ─── */
+    .v3 { background: #000; }
+    .v3 .title-area { padding: 0 28px; justify-content: center; }
+    .v3 .word {
+      display: block;
+      font-size: 64px;
+      font-weight: 900;
+      text-transform: uppercase;
+      line-height: 0.95;
+      color: transparent;
+      -webkit-text-stroke: 2px #fff;
+    }
+    /* 70px max for SECRETS (7 chars × 0.62 × 70 = 303px) */
+    .v3 .word.filled  { color: #00FF41; -webkit-text-stroke: 0; font-size: 70px; }
+    .v3 .word.filled2 { color: #4A9EFF; -webkit-text-stroke: 0; }
+
+    /* ─── 4. SIDEBAR BAR — blue bar, green accent ─── */
+    .v4 { background: #000; }
+    .v4 .title-area { padding: 36px 0 0 0; justify-content: flex-start; align-items: flex-start; }
+    .v4 .bar {
+      width: 5px; height: 200px;
+      background: #4A9EFF;
+      position: absolute;
+      left: 28px; top: 36px;
+    }
+    /* Sidebar padding-left 52px + padding-right 20px → 288px available
+       SECRETS@56px: 7 × 0.62 × 56 = 243px ✓
+       SECRETS@.big 66px: 7 × 0.62 × 66 = 286px ✓ */
+    .v4 .words { padding-left: 52px; padding-right: 20px; }
+    .v4 .word {
+      display: block;
+      font-size: 56px;
+      font-weight: 900;
+      text-transform: uppercase;
+      color: #fff;
+      line-height: 1;
+    }
+    .v4 .word.sub { font-size: 32px; font-weight: 400; color: #415D96; letter-spacing: 0.05em; }
+    .v4 .word.big { font-size: 66px; color: #00FF41; }
+
+    /* ─── 5. FULL-WIDTH BAND — red band on black ─── */
+    .v5 { background: #000; }
+    .v5 .above-band {
+      position: absolute;
+      top: 8px; left: 28px;
+      font-size: 12px;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: #444;
+    }
+    .v5 .band {
+      position: absolute;
+      top: 34px; left: 0; right: 0;
+      background: #CC0000;
+      padding: 14px 28px;
+    }
+    /* SECRETS@58px: 7 × 0.62 × 58 = 252px ✓ */
+    .v5 .band .word {
+      display: block;
+      font-size: 58px;
+      font-weight: 900;
+      text-transform: uppercase;
+      color: #fff;
+      line-height: 0.95;
+    }
+
+    /* ─── 6. GHOST TEXT — matrix glow ─── */
+    .v6 { background: #000; }
+    .v6 .ghost {
+      position: absolute;
+      top: 10px; left: -10px; right: 0;
+      font-size: 180px;
+      font-weight: 900;
+      text-transform: uppercase;
+      color: transparent;
+      -webkit-text-stroke: 1px rgba(0,255,65,0.08);
+      line-height: 0.85;
+      user-select: none;
+      letter-spacing: -8px;
+      word-break: break-all;
+    }
+    .v6 .title-area { padding: 0 28px; justify-content: center; }
+    .v6 .label-top {
+      font-size: 11px;
+      letter-spacing: 0.35em;
+      text-transform: uppercase;
+      color: #00FF41;
+      margin-bottom: 14px;
+      opacity: 0.7;
+    }
+    /* SECRETS@64px: 7 × 0.62 × 64 = 278px ✓ */
+    .v6 .word {
+      display: block;
+      font-size: 64px;
+      font-weight: 900;
+      text-transform: uppercase;
+      color: #fff;
+      line-height: 0.95;
+      text-shadow: 0 0 30px rgba(0,255,65,0.35);
+    }
+    .v6 .word.green { color: #00FF41; text-shadow: 0 0 40px rgba(0,255,65,0.7); }
+  </style>
+</head>
+<body>
+
+  <h2 class="label">Option 1 — Bold, matrix green accent</h2>
+  <div class="frame v1">
+    <div class="title-area">
+      <span class="word">Every</span>
+      <span class="word">File</span>
+      <span class="word">Spills</span>
+      <span class="word accent">Secrets</span>
+    </div>
+  </div>
+
+  <h2 class="label">Option 2 — Dark card, green border</h2>
+  <div class="frame v2">
+    <div class="title-area">
+      <div class="card">
+        <div class="small">strings · binutils</div>
+        <span class="word dim">Every</span>
+        <span class="word">File</span>
+        <span class="word dim">Spills</span>
+        <span class="word">Secrets</span>
+      </div>
+    </div>
+  </div>
+
+  <h2 class="label">Option 3 — Outline / filled, green + blue</h2>
+  <div class="frame v3">
+    <div class="title-area">
+      <span class="word">Every</span>
+      <span class="word filled">File</span>
+      <span class="word filled2">Spills</span>
+      <span class="word filled">Secrets</span>
+    </div>
+  </div>
+
+  <h2 class="label">Option 4 — Blue sidebar bar, green accent</h2>
+  <div class="frame v4">
+    <div class="title-area">
+      <div class="bar"></div>
+      <div class="words">
+        <span class="word sub">Every</span>
+        <span class="word">File</span>
+        <span class="word sub">Spills</span>
+        <span class="word big">Secrets</span>
+      </div>
+    </div>
+  </div>
+
+  <h2 class="label">Option 5 — Full-width red band</h2>
+  <div class="frame v5">
+    <div class="above-band">strings · binutils</div>
+    <div class="band">
+      <span class="word">Every</span>
+      <span class="word">File</span>
+      <span class="word">Spills</span>
+      <span class="word">Secrets</span>
+    </div>
+  </div>
+
+  <h2 class="label">Option 6 — Ghost text, matrix glow</h2>
+  <div class="frame v6">
+    <div class="ghost">FILE SEC</div>
+    <div class="title-area">
+      <div class="label-top">strings · binutils</div>
+      <span class="word">Every</span>
+      <span class="word">File</span>
+      <span class="word">Spills</span>
+      <span class="word green">Secrets</span>
+    </div>
+  </div>
+
+</body>
+</html>
