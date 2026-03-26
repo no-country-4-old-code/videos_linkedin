@@ -1,0 +1,116 @@
+## Short: "Signal snitches to Meta"
+
+---
+
+## Headline
+Signal Snitches To Meta
+
+## Text
+
+Signal. The privacy app. End-to-end encrypted.
+But last week during playing around I found some kind of loophole, I would like to share.
+
+Lets enter the Danger Zone and download the APK "https://signal.org/android/apk/".
+We unzip it and search for API-Endpoints.
+
+Suprise.. Signal uses giphy for the GIF-search.
+And it uses it directly.
+
+So giphy (which belongs to meta) gets the following info:
+- they know that the device at your IP is using Signal at the moment
+- they know your gif search terms
+
+So if you are up to something secret, you better spare the gifs ;).
+(image from donald trump signal chat ?)
+
+
+
+
+Run strings on the APK. Grep for API endpoints.
+
+There it is: `api.giphy.com`. Direct call. No proxy. No anonymization. Giphy is owned by Meta.
+
+Every time you search for a GIF in Signal, your IP address, your search query, and the fact that you use Signal — go straight to Meta. Because the API key is Signal's registered key. Giphy knows exactly which app is calling.
+
+Signal encrypted your messages. Then handed your metadata to Facebook's parent company for free.
+
+Use the tool. Know what your apps are actually doing.
+
+---
+
+## Display / CLI / Code
+https://signal.org/android/apk/
+```bash
+# We already know how to crack open an APK — let's go straight to the finding
+unzip -p Signal-Android-release.apk | strings | grep -i "api\." | sort -u
+```
+developers.giphy.com
+Show output:
+- `https://api.giphy.com/v1/gifs/`
+- `https://api.stripe.com/v1`
+
+```bash
+# Confirm Giphy is Meta-owned — and Signal's key identifies the app
+unzip -p Signal-Android-release.apk | strings | grep -i "giphy" | grep -i "key\|uri\|base"
+# Output: GIPHY_API_KEY, BASE_GIPHY_URI
+```
+
+Freeze on: `api.giphy.com` → cut to "Giphy: acquired by Meta (Facebook), 2020".
+
+What Meta sees per search:
+- Your IP address
+- Your search query
+- `api_key=<signal's registered key>` → identifies app as Signal
+
+
+---- WOW...
+
+Good instinct — a string in a binary is circumstantial. You want to catch it in the act. Here are your options, ranked by effort:
+
+  ---
+  Option 1: mitmproxy (easiest, most visual)
+
+  Run a MitM proxy on your laptop, route your Android through it.
+
+  pip install mitmproxy
+  mitmproxy --listen-port 8080
+
+  On Android:
+  - WiFi settings → proxy → your laptop's IP, port 8080
+  - Visit mitm.it in browser → install mitmproxy CA certificate
+  - Open Signal → tap the GIF button → type anything
+
+  mitmproxy will show the live request including the full URL with api_key= and q=<your search term>.
+
+  Caveat: Signal pins certificates for its own servers — those will show as failed/blocked in mitmproxy. But Giphy is a third-party call, Signal almost certainly doesn't pin it, so it should pass through
+  unmodified.
+
+  ---
+  Option 2: tcpdump on rooted Android / emulator
+
+  If you have a rooted device or Android emulator:
+
+  adb shell tcpdump -i any -w /sdcard/capture.pcap
+  # search for a GIF in Signal
+  adb pull /sdcard/capture.pcap
+  wireshark capture.pcap
+
+  Filter in Wireshark: http.host contains "giphy" — but you'll only see cleartext if TLS is not yet established or if you combine with the mitmproxy cert.
+
+  ---
+  Option 3: Android Emulator + HTTP Toolkit (zero setup)
+
+  https://httptoolkit.com does all of the above automatically for emulators — installs the cert, configures the proxy, shows you all traffic with pretty UI. Literally one click. Best option for recording
+  video.
+
+  ---
+  The likely result when you catch it:
+
+  GET https://api.giphy.com/v1/gifs/search
+      ?api_key=<32-char key>
+      &q=explosion
+      &limit=25
+      &lang=en
+      &rating=pg-13
+
+  That's your proof. URL in APK + live request = airtight.
