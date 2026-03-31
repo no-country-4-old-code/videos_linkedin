@@ -3,9 +3,55 @@
 ---
 
 ## Headline
-Your Photos Are Snitching
+Metadata of Donald Trump
 
 ## Text
+
+Nearly every image contain metadata in the excahnagble image format (EXIF).
+
+Thankfully big social media plattforms like Facebook, Linkedin etc. strip  most of the spicy metadata like original timestamp or geoposition from your uploaded images.
+
+But in case of smaller websites it depends.
+
+I want to share with you one image I stumble over, whcih has quite a story to tell.
+Lets download it and extract the metadata using the exiftool.
+
+Here we see filename, size, when it was created and when modified.
+Looks like someone spend himself a timebox of 2h to improve this image.
+
+And he (or she) worked hard in those 2h as we see in the history actions.. saved, saved, coverted, .. it looks like busy 2 hours.
+Under History Software Agent we see what tools where used. Here Adobe Photoshop, Lightroom etc.
+
+The raw file name was "Trump Retouched copy 2.jpg".
+I know that version control is not for binaries..but before my naming becomes like this, I rather change.
+
+And then.. the fun begins.
+Because we see that the editor applied here a mask.
+We can not undone the masking, but we can see where this mask was.
+
+...ok..
+Wayback-Machine to check what happend here.
+https://www.trump.com/leadership/donald-j-trump-biography
+https://web.archive.org/web/20230807055338/https://www.trump.com/leadership/donald-j-trump-biography
+
+First, it was really a screenshot.
+Second, there is no pen ?
+I do not know.. what this is, and why someone make the effort to add this into a phot a 21.07.2023.
+and to be honest, I do not care.
+But I sincerly hope, that today you learned something about metadata in your images.
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 Every photo you take is a confession.
 
