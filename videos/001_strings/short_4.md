@@ -7,21 +7,24 @@ SSH's 49 Fake Emails
 
 ## Text
 
-Run an email regex on `/usr/bin/ssh`. You get 49 hits. In the most security-critical binary on your system. That looks bad.
+Extract all strings in ssh, filter for email-addresses using grep and a regular expression, then filter the unique ones and count the lines.
+You get 49 hits.
+49 hardcoded email-addresses in one of the most security-critical binries on your system.
 
-But look at them. `chacha20-poly1305@openssh.com`. `keepalive@openssh.com`. `ping@openssh.com`. `no-more-sessions@openssh.com`. These aren't people. They're ciphers, MACs, and protocol messages.
+Reason enough to take a deeper look... *pause*
+..which thankfully calms the situation. These aren't people. They're how SSH negotiates encryption.
 
-The SSH RFC uses `name@domain` as a namespacing convention for vendor extensions. These strings show up in two distinct places.
+During the handshake, client and server exchange lists of supported algorithm names. Both sides compare, pick the first match, and that's your cipher. The string disappears after that — the agreed algorithm just runs silently.
 
-During the handshake, client and server each send a comma-separated list of supported algorithm names — `chacha20-poly1305@openssh.com`, `aes256-gcm@openssh.com`, and so on. Both sides compare lists, pick the first match, and that's your cipher. After that, the string disappears — the agreed algorithm just runs silently. It's a capability advertisement, not an opcode.
+`no-more-sessions@openssh.com` is a different thing. It travels inside an extension message, and when the server sees it, it locks the connection: no further session channels allowed. A security signal: "I'm done, don't let anyone sneak one in."
 
-The second place is inside extension messages. `no-more-sessions@openssh.com` travels as the named payload of an `SSH_MSG_GLOBAL_REQUEST` packet. The packet type is still a numeric opcode — 80 — but the payload contains the string as the request name. The server looks it up, recognizes the extension, and locks down the connection: no further session channels allowed. A security signal: "I'm done, don't let anyone sneak one in."
-
-The `@domain` part exists so OpenSSH can invent new identifiers — `keepalive@openssh.com`, `ping@openssh.com` — without colliding with base RFC names or other vendors. It just happens to look exactly like an email address.
+So the `@domain` here is just namespacing — so OpenSSH can invent identifiers without colliding with base RFC names. It just happens to look exactly like an email address.
 
 ---
 
 ## Display / CLI / Code
+
+https://datatracker.ietf.org/doc/html/rfc4251
 
 ```bash
 # The alarm — 49 email addresses in your SSH binary

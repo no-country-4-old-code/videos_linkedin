@@ -7,19 +7,17 @@ Obfuscation Is Not Enough
 
 ## Text
 
-You obfuscated the password. Good start. Not enough.
+You obfuscated the password. Nice try. Attackers might need a little bit longer to identify your password inside this whole binary garbage.
 
-The username is sitting in cleartext — that's your signpost.
-Search for it. Get the offset. Peek with xxd.
+Unless you stored your obfuscated password directly beside your username.
+Which is still in cleartext.
+And not very creative.
 
-Username, right there. And next to it? Gibberish. That's your obfuscated password.
-You can't read it — but you know exactly where it lives and roughly how long it is.
+So an attacker could simply search for it, get the offset and then peek around it with xxd.
+Obfuscating passwords is not hashing.
+It is reversible.
 
-Field names like `password=` or `auth_key=` sitting next to the blob confirm what it is.
-And simple obfuscation — base64, XOR, ROT13 — is trivially reversible once you know the location.
-
-Obfuscation is not encryption. You gave the attacker a map.
-Hash passwords with a real KDF. Don't obfuscate them.
+Do yourself a favor and hash your passwords with a real key derivation function.
 
 ---
 
@@ -28,10 +26,10 @@ Hash passwords with a real KDF. Don't obfuscate them.
 ```bash
 # Find username and its memory offset
 strings -t x firmware-update-v4.2 | grep -Ff common_user_names.txt
-# Output: 0x814d admin
+# Output: 0x2020 admin
 
 # Peek at memory around that offset
-xxd -s 0x814d -l 0x40 firmware-update-v4.2
+xxd -s 0x2020 -l 0x40 firmware-update-v4.2
 # Output: username in cleartext, followed by unreadable bytes (the obfuscated password)
 
 # One-liner to show how trivially the obfuscation falls apart
