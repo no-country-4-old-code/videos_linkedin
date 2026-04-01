@@ -7,81 +7,61 @@ Metadata of Donald Trump
 
 ## Text
 
-Nearly every image contain metadata in the excahnagble image format (EXIF).
+Nearly every image contains metadata in the exchangeable image format (EXIF).
 
-Thankfully big social media plattforms like Facebook, Linkedin etc. strip  most of the spicy metadata like original timestamp or geoposition from your uploaded images.
+Thankfully big social media platforms like Facebook, LinkedIn etc. strip most of the spicy metadata like original timestamps or geoposition from your uploaded images.
 
-But in case of smaller websites it depends.
+But in case of other websites it depends.
 
-I want to share with you one image I stumble over, whcih has quite a story to tell.
-Lets download it and extract the metadata using the exiftool.
+I want to share with you a very great image, no maybe the greatest image I stumbled upon during a lazy evening.
+Let's download it and extract the metadata using the very great exiftool.
 
-Here we see filename, size, when it was created and when modified.
-Looks like someone spend himself a timebox of 2h to improve this image.
-
-And he (or she) worked hard in those 2h as we see in the history actions.. saved, saved, coverted, .. it looks like busy 2 hours.
-Under History Software Agent we see what tools where used. Here Adobe Photoshop, Lightroom etc.
+And we get a lot of metadata.
+Filename, orignal timestamps -  Someone spent 2 hours retouching this one.
+We can also see what the actions and which tools were used when.
+Here Adobe Photoshop and Adobe Lightroom on a MAC.
 
 The raw file name was "Trump Retouched copy 2.jpg".
-I know that version control is not for binaries..but before my naming becomes like this, I rather change.
+Professional version handling - I like this.
 
-And then.. the fun begins.
-Because we see that the editor applied here a mask.
-We can not undone the masking, but we can see where this mask was.
+And then.. it gets even more interesting.
+Because we see that the editor applied a mask.
+We cannot undo the masking, but I vibe coded a Python script which just plots green dots at those coordinates.
+Here is the result.
+They seemed to just eliminated some ugly clouds here.
 
-...ok..
-Wayback-Machine to check what happend here.
+But hey, we know when this image was updated.
+Lets check what was on the webpage before.
+We can do this with the Wayback Machine - the incarnation of the "the-internet-never-forgets"-phrase.
+We select a screenshot in the early 2023.
 https://www.trump.com/leadership/donald-j-trump-biography
 https://web.archive.org/web/20230807055338/https://www.trump.com/leadership/donald-j-trump-biography
+Lets download the old image as well and place them side by side.
 
-First, it was really a screenshot.
-Second, there is no pen ?
-I do not know.. what this is, and why someone make the effort to add this into a phot a 21.07.2023.
-and to be honest, I do not care.
-But I sincerly hope, that today you learned something about metadata in your images.
+Do you know those children's games where you see two images and need to spot the differences?
+For a starter.. you might notice there is no sky in this one.
+Also Mr. Trump forgot his pen here.
+I do not know if this is a hint to a greater conspiracy going on, and to be honest, I do not care.
+But I sincerely hope that you learned something about metadata in your images today.
+If you send them around via Email or WhatsApp, they are not stripped of their metadata automatically.
+And besides this...if you spot anymore differences let me know in the comments :)
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-Every photo you take is a confession.
-
-Camera model. Lens. GPS coordinates. Exact timestamp down to the second.
-All baked silently into the file. All invisible to the naked eye.
-
-Your grandma just posted a selfie from her "secret" vacation spot.
-exiftool told me she's at 48.8566° N, 2.3522° E.
-That's Paris. Hi grandma.
-
-Stripping it is one command. Faking it is also one command.
-That photo "taken in Berlin"? Shot in a basement in Cleveland.
-exiftool doesn't judge.
-
-Now — LinkedIn, X, Instagram, they all strip EXIF on upload. Automatically. To protect their users.
-So your grandma's Paris selfie is safe on social media.
-
-But most of the time the same images are posted on multiple plattforms.
-So searching the first appearence of the image via a reversed image search (TinEye), might lead to an unstripped image.
-
-Also some webpages are not stripping apart info : https://www.trump.com/leadership/donald-j-trump-biography .
-And boy is this image talkitive.. create at .. edited with photoshop .. here the whole history .. and the old filename was "xyz" - wow..
-here was a professional. I know putting binaries under version control might bloat.. but before I do this naming ? 
-
-But the photo she sent you directly over email? WhatsApp? USB stick?
-Full metadata. Still there. Still talking.
-
-Know what's in your files before someone else does it for you.
 
 ---
+## What to do
+
+- Title the picture and "The Metadata of Donald Trump".
+Show image Trump X account.
+Switch to Trumps Webpage , go to his profile , download the file.
+Show command line and use EXIFTOOL -> pipe to less
+--> Mark filename, timestamps, history action, mask
+- show python script
+- show retouched_overlay
+- Open Browser at Wayback machine and open page on januar 2023
+- Download image
+- Place them side by side  
+
+
 ## Info about Trump picture
 
   ---
@@ -90,8 +70,7 @@ Know what's in your files before someone else does it for you.
   - User Comment: Screenshot — So this whole elaborate retouched image... started as a screenshot.
 
   The Software Trail — It's Complicated
-  - Created in Adobe Lightroom 6.4 on Macintosh — but then bounced through Adobe Photoshop 24.6 (also Mac) no less than 10 times before being saved back to
-  Lightroom. Someone was really committed.
+  - Created in Adobe Lightroom 6.4 on Macintosh — but then bounced through Adobe Photoshop 24.6 (also Mac) no less than 10 times before being saved back to Lightroom. Someone was really committed.
   - The History Action field has saved appearing 7 times. Every "final" save apparently needed 6 more final saves.
 
   The Raw File Name (Best Part)
@@ -158,3 +137,27 @@ exiftool photo.jpg | grep -E "GPS|Date"
 # GPS Latitude  : 52.5200 N   <- Berlin
 # Date/Time Original : 2026:01:01 08:00:00
 ```
+
+```bash
+# Extract brush dab coordinates from Lightroom mask data
+exiftool -"Mask*Dabs" donald-j-trump.jpg | grep -oP "d \K[0-9.]+ [0-9.]+" > dabs.txt
+wc -l dabs.txt
+# 1519 dabs.txt
+```
+
+```python
+# plot_dabs.py — yellow dots on the photo
+from PIL import Image, ImageDraw
+img = Image.open("donald-j-trump.jpg")
+draw = ImageDraw.Draw(img)
+for line in open("dabs.txt"):
+    x, y = float(line.split()[0]), float(line.split()[1])
+    draw.ellipse([x*980-2, y*1282-2, x*980+2, y*1282+2], fill="yellow")
+img.save("retouched_overlay.jpg")
+```
+
+```bash
+python3 plot_dabs.py
+```
+
+Show: side-by-side or zoom into hair area of `retouched_overlay.jpg` — dense cluster of yellow dots across the hairline.
