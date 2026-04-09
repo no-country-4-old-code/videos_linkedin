@@ -37,5 +37,7 @@
 - [s] : 025_Perf_Loop_Enrollment (Compiler enroll loops to be faster)
 - [s] : 026_Why_Heap_slower (Why Heap is slower then Stack)
 - [s] : 027_CPU_vulnerbilites (sys/cpu/vulnerbilities)
-- 
+- [ ] : 028_FRIDA
+- [ ] : 029_MITM_Proxy
+- [ ] : 030_RFID_Scanning_with_Cameleon_Ultra
 

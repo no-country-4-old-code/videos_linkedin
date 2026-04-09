@@ -14,27 +14,15 @@ Lets enter the Danger Zone and download the APK "https://signal.org/android/apk/
 We unzip it and search for API-Endpoints.
 
 Suprise.. Signal uses giphy for the GIF-search.
-And it uses it directly.
+And it uses it directly. Now proxy in between.
 
 So giphy (which belongs to meta) gets the following info:
 - they know that the device at your IP is using Signal at the moment
 - they know your gif search terms
 
-So if you are up to something secret, you better spare the gifs ;).
-(image from donald trump signal chat ?)
+So stick to the experts and do not use GIFs when communicating your secret plans.
 
 
-
-
-Run strings on the APK. Grep for API endpoints.
-
-There it is: `api.giphy.com`. Direct call. No proxy. No anonymization. Giphy is owned by Meta.
-
-Every time you search for a GIF in Signal, your IP address, your search query, and the fact that you use Signal — go straight to Meta. Because the API key is Signal's registered key. Giphy knows exactly which app is calling.
-
-Signal encrypted your messages. Then handed your metadata to Facebook's parent company for free.
-
-Use the tool. Know what your apps are actually doing.
 
 ---
 
