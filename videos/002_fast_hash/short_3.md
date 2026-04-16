@@ -25,6 +25,18 @@ That GPU isn't just for gaming anymore.
 
 ## Display / CLI / Code
 
+### Findings
+# CPU-only benchmark <=== THAT is CPU only
+hashcat -b -m 0 --force --opencl-device-types 1
+
+# GPU benchmark (default) <=== THIS also
+hashcat -b -m 0
+
+==> Both are equally fast.
+If I want GPU support I need to use oclHashcat.
+Adapt examples !
+
+
 ```bash
 # CPU-only benchmark
 hashcat -b -m 0 --force --opencl-device-types 1

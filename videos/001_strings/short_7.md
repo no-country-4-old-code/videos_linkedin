@@ -11,16 +11,21 @@ Signal. The privacy app. End-to-end encrypted.
 But last week during playing around I found some kind of loophole, I would like to share.
 
 Lets enter the Danger Zone and download the APK "https://signal.org/android/apk/".
-We unzip it and search for API-Endpoints.
+We unzip it and filter for https-API-Endpoints.
 
-Suprise.. Signal uses giphy for the GIF-search.
-And it uses it directly. Now proxy in between.
+And there are a lot.. and it makes fun to look through them..
+but today we focus on this one here:
+Signal uses giphy for the GIF-search.
+And it uses the endpoint directly. No proxy in between.
 
-So giphy (which belongs to meta) gets the following info:
+And this has the implication, that everytime you search for GIFs giphy (which belongs to meta) gets the following info:
 - they know that the device at your IP is using Signal at the moment
 - they know your gif search terms
+and regarding to their privacy policy, they have no problem with storing and analysing that.
 
-So stick to the experts and do not use GIFs when communicating your secret plans.
+Take away for today:
+Do not communicte your secret plans using GIFs..at least not using GIFs only.
+
 
 
 
@@ -30,8 +35,10 @@ So stick to the experts and do not use GIFs when communicating your secret plans
 https://signal.org/android/apk/
 ```bash
 # We already know how to crack open an APK — let's go straight to the finding
-unzip -p Signal-Android-release.apk | strings | grep -i "api\." | sort -u
+
+ unzip -p Signal-Android-website-prod-universal-release-8.3.4.apk | strings | grep -i "https://" | sort -u
 ```
+
 developers.giphy.com
 Show output:
 - `https://api.giphy.com/v1/gifs/`

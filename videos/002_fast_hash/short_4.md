@@ -23,6 +23,11 @@ Behind every security tool... there's a developer who thought this was funny at 
 
 ## Display / CLI / Code
 
+## Findings
+example does not deliever entertaining content.+
+Try it out. It is just boring.
+To better or change the topic !
+
 ```bash
 # Use strings on hashcat itself (callback to video 001!)
 strings $(which hashcat) | grep -iE "todo|hack|lol|egg|debug|http"

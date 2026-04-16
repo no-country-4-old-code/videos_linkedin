@@ -7,27 +7,38 @@ MD5 Was Too Fast
 
 ## Text
 
-MD5 was designed to be fast. That's the problem.
-
-It was built for file integrity checks — verifying downloads, detecting corruption. Speed was the whole point. You want checksums to be instant.
+MD5 was built for file integrity checks — verifying downloads, detecting corruption. Speed was the whole point. You want checksums to be instant.
 
 But then developers started hashing passwords with it. And suddenly, that speed became a vulnerability.
 
-Watch this. MD5 on a file — milliseconds, exactly as intended.
+When we run a benchmark test, we see that hashcat checks nearly 1 billion MD5 hashes per second - even without GPU support.
 
-Now watch hashcat run MD5 as a password cracker. One billion hashes per second.
+MD5 was designed to be fast.
+Thats the problem.
 
-That's not a bug. That's MD5 working exactly as designed.
+But thanks god, there are Key-Derivate-Functions.
+KDF were designed to be ugly. Like your mum. 
+KDF are Memory hungry, lame, hard to optimize or parallize.
+Look how the benchmark drops down from 1 billion to only 200 hashes per second when we use a KDF like script for hashing our passwords.
 
-Using MD5 for passwords is like using a race car as a speed bump.
+The beauty of ugliness.
+
+## Findings !
+Please correct grammar and check content.
 
 ---
 
 ## Display / CLI / Code
 
 ```bash
+rm  ~/.local/share/hashcat/hashcat.potfile
+
 # Intended use: file integrity check (fast is good here)
 md5sum ubuntu-24.04-desktop-amd64.iso
+
+# Show misuse: Create password hash with md5sum
+echo -n "newBegin#046" | md5sum
+hashcat -m 0 -a 0 61930f968724ee415f7f365693f0e8d5 rockyou*
 
 # Misuse: cracking passwords at full MD5 speed
 hashcat -b -m 0

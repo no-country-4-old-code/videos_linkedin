@@ -11,31 +11,31 @@ Nearly every image contains metadata in the exchangeable image format (EXIF).
 
 Thankfully big social media platforms like Facebook, LinkedIn etc. strip most of the spicy metadata like original timestamps or geoposition from your uploaded images.
 
-But in case of other websites it depends.
+But in case of minor websites it depends.
 
-I want to share with you a very great image, no maybe the greatest image I stumbled upon during a lazy evening.
-Let's download it and extract the metadata using the very great exiftool.
+I produly present to you.. the by far greatest and most inspiring image I stumbled upon during a evening full of the procastrination.
+Let's download it and extract the metadata using exiftool.
 
-And we get a lot of metadata.
-Filename, orignal timestamps -  Someone spent 2 hours retouching this one.
-We can also see what the actions and which tools were used when.
-Here Adobe Photoshop and Adobe Lightroom on a MAC.
+...which is a lot.
+Filename, orignal timestamps -  On dd.mm.yyyy spent somone 2 hours modifiying this one.
+Using a Macitosh and Adobe Photoshop and Lightroom.
 
 The raw file name was "Trump Retouched copy 2.jpg".
 Professional version handling - I like this.
 
 And then.. it gets even more interesting.
-Because we see that the editor applied a mask.
+Because we see that the editor applied a mask to this coordintates.
 We cannot undo the masking, but I vibe coded a Python script which just plots green dots at those coordinates.
 Here is the result.
-They seemed to just eliminated some ugly clouds here.
+Sadly they seemed to just eliminated some ugly clouds there.
 
-But hey, we know when this image was updated.
+But hey, we know when this image was updated. (show timestamp again)
 Lets check what was on the webpage before.
 We can do this with the Wayback Machine - the incarnation of the "the-internet-never-forgets"-phrase.
 We select a screenshot in the early 2023.
 https://www.trump.com/leadership/donald-j-trump-biography
 https://web.archive.org/web/20230807055338/https://www.trump.com/leadership/donald-j-trump-biography
+..and well.. this looks different.
 Lets download the old image as well and place them side by side.
 
 Do you know those children's games where you see two images and need to spot the differences?
@@ -44,6 +44,7 @@ Also Mr. Trump forgot his pen here.
 I do not know if this is a hint to a greater conspiracy going on, and to be honest, I do not care.
 But I sincerely hope that you learned something about metadata in your images today.
 If you send them around via Email or WhatsApp, they are not stripped of their metadata automatically.
+So keep this in mind.
 And besides this...if you spot anymore differences let me know in the comments :)
 
 
