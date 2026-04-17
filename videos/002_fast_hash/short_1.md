@@ -11,11 +11,19 @@ If your password database leaks, here's exactly what hits it next.
 
 A hash is one-way — there's no reverse. So attackers try passwords until one matches. Hashcat automates that at scale.
 
-Dictionary attack: every word in a wordlist, hashed and compared. Brute-force: every possible combination. Rule-based: mutations — "password" becomes "P@ssw0rd". Hybrid modes combine all of the above.
+Hashcat supports Brute-force, which is just trying out every possible combination.
+and Dictionary attacks.
+Here you pass hashcat a list of often used passwords to check.
 
-GPU support makes this billions of attempts per second. Potfile caching means any hash cracked before is instant — no recomputation.
+All passwords which hashcat should test, can be mutated by so called rules.
+This way "password" becomes "P@assw0rd".
 
-This is the tool testing your users' password choices right now. Know how it works. Choose your hashing algorithm accordingly.
+Depending on our hash-function, hashcat can run billions of attempts per second.
+This speeds up with Potfile caching.
+Every hash which is cracked before is instant resolved — no recomputation.
+
+Defend against it by using Key-Derivatve-Function for hashing and enforce a minimal password complexity.
+
 
 ---
 
@@ -29,6 +37,9 @@ This is the tool testing your users' password choices right now. Know how it wor
 # Create a test hash (MD5 of "password")
 echo -n "password" | md5sum
 # => 5f4dcc3b5aa765d61d8327deb882cf99
+
+# Create a list : leaked_hashed_pwds.txt
+Show List 
 
 # Dictionary attack against that hash
 echo "5f4dcc3b5aa765d61d8327deb882cf99" > hash.txt
