@@ -14,17 +14,14 @@ But then developers started hashing passwords with it. And suddenly, that speed 
 When we run a benchmark test, we see that hashcat checks nearly 1 billion MD5 hashes per second - even without GPU support.
 
 MD5 was designed to be fast.
-Thats the problem.
+That's the problem.
 
-But thanks god, there are Key-Derivate-Functions.
-KDF were designed to be ugly. Like your mum. 
-KDF are Memory hungry, lame, hard to optimize or parallize.
-Look how the benchmark drops down from 1 billion to only 200 hashes per second when we use a KDF like script for hashing our passwords.
+But thank god, there are Key Derivation Functions.
+KDFs were designed to be ugly. Like your mum.
+KDFs are memory hungry, slow, hard to optimize or parallelize.
+Look how the benchmark drops down from 1 billion to only 200 hashes per second when we use a KDF like scrypt for hashing our passwords.
 
 The beauty of ugliness.
-
-## Findings !
-Please correct grammar and check content.
 
 ---
 
