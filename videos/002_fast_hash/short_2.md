@@ -17,11 +17,11 @@ MD5 was designed to be fast.
 That's the problem.
 
 But thank god, there are Key Derivation Functions.
-KDFs were designed to be ugly. Like your mum.
-KDFs are memory hungry, slow, hard to optimize or parallelize.
+KDFs were designed to be ugly.
+That means they are memory hungry, slow, hard to optimize or parallelize.
 Look how the benchmark drops down from 1 billion to only 200 hashes per second when we use a KDF like scrypt for hashing our passwords.
 
-The beauty of ugliness.
+Beautifully slow.
 
 ---
 
@@ -39,6 +39,9 @@ hashcat -m 0 -a 0 61930f968724ee415f7f365693f0e8d5 rockyou*
 
 # Misuse: cracking passwords at full MD5 speed
 hashcat -b -m 0
+man hashcat 
+/scrypt
+hashcat -b -m 4110
 ```
 
 Show output:
