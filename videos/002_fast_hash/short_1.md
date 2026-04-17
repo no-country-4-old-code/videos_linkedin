@@ -1,46 +1,48 @@
-## Short: "hashcat in 60 Seconds"
+## Short: "How Passwords Actually Get Cracked"
 
 ---
 
 ## Headline
-One Tool, 300 Hashes
+Try Every Password
 
 ## Text
 
-This is hashcat. The world's fastest password recovery tool.
+A hash is a one-way function. There's no reverse. The only way to crack it is to try passwords until one matches.
 
-Install it in one command. Feed it a hash. Pick an attack mode. Watch it work.
+That's not a clever insight — that's the entire attack.
 
-Dictionary attack — throw a wordlist at it. Brute force — try every combination. Rule-based — mutate passwords intelligently. Hashcat does it all.
+And hashcat is the tool that automates it at scale.
 
-And here's the thing — scroll through the supported hash types. MD5, SHA-256, bcrypt, WPA, zip files, Office documents...
+Dictionary attack: feed it a wordlist, it hashes each word and checks for a match. Brute-force: try every possible combination. Rule-based: mutate words intelligently — "password" becomes "P@ssw0rd". Hybrid modes combine wordlists with masks.
 
-Over 300 hash types. One tool. Every platform.
+GPU support makes all of this billions of times faster. And potfile caching means a hash you've cracked once? Never cracked again — it's stored.
 
-If a hash exists, hashcat probably cracks it.
-
-One tool. 300+ hash types. Now you know.
+A lot of supported hash types. MD5, SHA, bcrypt, WPA, Office documents — if it's hashed, hashcat handles it.
 
 ---
 
 ## Display / CLI / Code
 
 ```bash
-# Install
-apt install hashcat
+# Create a test hash (MD5 of "password")
+echo -n "password" | md5sum
+# => 5f4dcc3b5aa765d61d8327deb882cf99
 
-# Scroll through supported hash types
-hashcat --help | head -60
-
-# Count the number of supported hash modes
-hashcat --help | grep -c "^[[:space:]]*[0-9]"
-
-# Run a quick dictionary attack against an MD5 hash
+# Dictionary attack against that hash
 echo "5f4dcc3b5aa765d61d8327deb882cf99" > hash.txt
 hashcat -m 0 -a 0 hash.txt /usr/share/wordlists/rockyou.txt
+
+# Brute-force: 4-character lowercase passwords
+hashcat -m 0 -a 3 hash.txt ?l?l?l?l
+
+# Already cracked? Potfile remembers — show cached result
+hashcat -m 0 hash.txt --show
+
+# Count supported hash types
+hashcat --help | grep -c "^\s*[0-9]* |"
 ```
 
 Show output:
-- `--help` scrolling fast through hundreds of hash type entries
-- grep count returning 300+
-- hashcat cracking "password" from rockyou.txt in under a second
+- Dictionary attack cracking "password" instantly from rockyou.txt
+- `--show` returning the result without re-running — potfile in action
+- Hash type count printing ~500
