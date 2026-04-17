@@ -1,23 +1,25 @@
-## Short: "How Passwords Actually Get Cracked"
+## Short: "Know What's Coming at Your Hashes"
 
 ---
 
 ## Headline
-Try Every Password
+Know Your Enemy's Tools
 
 ## Text
 
-A hash is a one-way function. There's no reverse. The only way to crack it is to try passwords until one matches.
+If your password database leaks, here's exactly what hits it next.
 
-That's not a clever insight — that's the entire attack.
+A hash is one-way — there's no reverse. So attackers try passwords until one matches. Hashcat automates that at scale.
 
-And hashcat is the tool that automates it at scale.
+Dictionary attack: every word in a wordlist, hashed and compared. Brute-force: every possible combination. Rule-based: mutations — "password" becomes "P@ssw0rd". Hybrid modes combine all of the above.
 
-Dictionary attack: feed it a wordlist, it hashes each word and checks for a match. Brute-force: try every possible combination. Rule-based: mutate words intelligently — "password" becomes "P@ssw0rd". Hybrid modes combine wordlists with masks.
+GPU support makes this billions of attempts per second. Potfile caching means any hash cracked before is instant — no recomputation.
 
-GPU support makes all of this billions of times faster. And potfile caching means a hash you've cracked once? Never cracked again — it's stored.
+This is the tool testing your users' password choices right now. Know how it works. Choose your hashing algorithm accordingly.
 
-A lot of supported hash types. MD5, SHA, bcrypt, WPA, Office documents — if it's hashed, hashcat handles it.
+---
+
+## Display / CLI / Code
 
 ---
 
