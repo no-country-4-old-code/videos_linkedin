@@ -3,7 +3,7 @@
 ---
 
 ## Headline
-MD5 Was Too Fast
+Faster, faster, unsafe !
 
 ## Text
 

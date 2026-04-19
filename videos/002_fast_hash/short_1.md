@@ -3,7 +3,7 @@
 ---
 
 ## Headline
-Know Your Enemy's Tools
+Hashcat Eats Your Hashes
 
 ## Text
 
