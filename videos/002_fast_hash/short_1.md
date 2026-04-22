@@ -13,8 +13,7 @@ A hash is one-way — there's no reverse. So attackers try passwords until one m
 
 It supports brute-force — trying every possible combination — and dictionary attacks, where you feed hashcat a list of commonly used passwords.
 
-Every candidate can be mutated by so-called rules. This way "password" becomes "P@ssw0rd".
-Take this leetspeak.
+Every candidate can be mutated by so-called rules for e.g. covering leetspeak.
 
 Depending on the hash function, hashcat runs billions of attempts per second. Potfile caching pushes it further: every hash cracked before is resolved instantly — no recomputation.
 

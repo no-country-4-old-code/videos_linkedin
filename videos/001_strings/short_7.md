@@ -23,9 +23,11 @@ And this has the implication, that everytime you search for GIFs giphy (which be
 - they know your gif search terms
 and regarding to their privacy policy, they have no problem with storing and analysing that.
 
+Is this serious ? I do not know.
+
 Take away for today:
 Do not communicte your secret plans using GIFs..at least not using GIFs only.
-
+“And by the way, am I the only one who gets a headache when looking at the Giphy homepage?”
 
 
 

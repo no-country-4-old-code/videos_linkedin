@@ -7,11 +7,17 @@ Read Binaries Like Books
 
 ## Text
 
-Shipped with binutils comes one of the most useful CLI tools to extract strings from binaries: `strings`.
+Shipped with binutils is `strings` — a tool that extracts strings from binaries.
 
-Use `-t x` to show the offset of each string in hex — great for reverse engineering. Use `-n` to set a minimum length and cut through the noise.
+Use `-t x` to show the offset of each string in hex.
+Very useful to find out where to look with the hex editor.
 
-For more options, check the man page. Pretty useful tool. Been there for ages, but still absolutely worth it.
+Use `-n` to set a minimum length and minimize the noise.
+
+For more options, check the man page. Pretty useful tool.
+
+It's been there for ages, but still absolutely worth it.
+In the following videos we will have some fun with it.
 
 ---
 

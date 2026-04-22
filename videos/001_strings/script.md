@@ -46,3 +46,32 @@ strings -n 8 firmware-update-v4.2 |
 strings firmware-update-v4.2 -t x | grep -Ff common_user_names.txt
 xxd -s 0x814d -l 0x40 firmware-update-v4.2xx
 
+
+## YouTube Title
+
+1. **Grandma angle**: "Your Evil Grandma Can Steal Your Firmware Password (and she will)"
+2. **Technical-discovery angle**: "How to Extract Plaintext Passwords From Any Binary With One Command"
+3. **Warning / provocation angle**: "Your Firmware Is Leaking Passwords — And Anyone Can Read Them"
+4. **Short & punchy**: "Every Binary Spills Secrets"
+
+
+## YouTube Description
+
+Shipping a firmware update? Your password might be riding along in plaintext — readable by anyone with a terminal and two minutes to spare. In this video we use `strings` + `grep` to hunt for cleartext passwords in a downloaded firmware binary, then follow up with a username-first approach using `xxd` to peek at whatever lives next door.
+
+**Commands used:**
+```bash
+sudo apt install binutils
+
+# method 1 — search for strings that look like passwords
+strings -n 8 firmware-update-v4.2 | grep -P '^(?=.*[0-9])(?=.*[A-Z])(?=.*[a-z])(?=.*[_\W]).+$'
+
+# method 2 — search by username first, then inspect the surrounding bytes
+strings firmware-update-v4.2 -t x | grep -Ff common_user_names.txt
+xxd -s 0x814d -l 0x40 firmware-update-v4.2
+```
+
+Next up: why hashing with MD5 or SHA-256 is still not enough — and what a Key Derivation Function actually does.
+
+#cybersecurity #reverseengineering #binutils #strings #firmware #embedded #infosec #passwords #linux #hacking
+
