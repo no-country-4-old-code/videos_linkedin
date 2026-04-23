@@ -46,4 +46,27 @@ Host: api.giphy.com:443
 
 Freeze on Wireshark row → "Signal called home to Giphy (Meta)".
 
+---
+
+## Youtube title
+1. I Caught Signal Calling Giphy (Meta) Live With Wireshark — Full Proof
+2. String in an APK Was a Hint. This Wireshark Capture Is the Proof.
+3. Verifying With Network Traffic: Signal Really Does Talk to Meta's Giphy
+4. From APK String to Live Capture: How to Actually Confirm a Privacy Leak
+
+## Youtube Description
+Finding a third-party URL in an APK binary is circumstantial — a Wireshark capture is the actual proof. This short shows how to install Signal on an Android emulator, apply a `http.proxy_connect_host` filter in Wireshark on the host, and capture the live TLS CONNECT to `api.giphy.com` the moment you open Signal's GIF search.
+
+Commands shown:
+- `strings Signal-Android-release.apk | grep -i "giphy"`
+- `adb install Signal-Android-release.apk`
+- Wireshark filter: `http.proxy_connect_host == "api.giphy.com"`
+
+#infosec #privacy #wireshark #networksecurity #cybersecurity
+
+## LinkedIn Description
+When assessing a privacy claim, strings-in-a-binary is evidence; live network capture is proof — and Wireshark on an emulator host makes that verification trivial. Combine static analysis of shipped artifacts with dynamic network monitoring to turn "potential" findings into confirmed incidents before they reach a report.
+
+#blueteam #infosec #cybersecurity
+
 

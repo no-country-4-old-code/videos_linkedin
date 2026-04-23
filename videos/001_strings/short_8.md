@@ -162,3 +162,27 @@ python3 plot_dabs.py
 ```
 
 Show: side-by-side or zoom into hair area of `retouched_overlay.jpg` — dense cluster of yellow dots across the hairline.
+
+---
+
+## Youtube title
+1. What the Metadata of Trump's Official Photo Reveals About Who Edited It
+2. EXIF Forensics: 2 Hours of Retouching, 7 "Final" Saves, and a File Named "copy 2"
+3. `exiftool` Reads the Hidden Story Inside a Presidential Photo
+4. Your Photos Are Telling Strangers More Than You Think — Here's How Much
+
+## Youtube Description
+Nearly every image carries EXIF metadata: timestamps, software history, and even AI brush-stroke coordinates from photo editors. This short extracts the full metadata trail from Donald Trump's official website photo using `exiftool`, plots thousands of Lightroom mask coordinates with a Python script, then cross-references the edit timestamp against the Wayback Machine to find what changed.
+
+Commands shown:
+- `exiftool photo.jpg`
+- `exiftool -all= photo.jpg`
+- `exiftool -"Mask*Dabs" donald-j-trump.jpg | grep -oP "d \K[0-9.]+ [0-9.]+" > dabs.txt`
+- `python3 plot_dabs.py`
+
+#infosec #exif #metadata #osint #cybersecurity
+
+## LinkedIn Description
+Images sent via email or WhatsApp are not automatically stripped of metadata — GPS coordinates, device model, and edit history can all travel with the file. Before distributing sensitive imagery externally, run `exiftool -all=` and verify with `exiftool` afterwards to confirm the metadata is gone.
+
+#privacy #osint #cybersecurity

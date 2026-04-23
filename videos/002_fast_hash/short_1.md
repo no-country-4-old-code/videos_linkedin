@@ -56,3 +56,29 @@ Show output:
 - Dictionary attack cracking "password" instantly from rockyou.txt
 - `--show` returning the result without re-running — potfile in action
 - Hash type count printing ~500
+
+---
+
+## Youtube title
+1. Your Password Database Leaked — Here's Exactly What Attacks It Next
+2. Hashcat in 60 Seconds: Dictionary, Brute-Force, Rules, and Potfile Caching Explained
+3. How Hashcat Cracks Thousands of Hashes Before You Even Finish Your Coffee
+4. What Is Hashcat and Why Should Every Developer Fear It?
+
+## Youtube Description
+When a password database leaks, hashcat is what hits it. This short covers how hashcat works: dictionary attacks with rockyou.txt, brute-force enumeration, leetspeak rule mutations, and potfile caching that returns already-cracked hashes instantly — no recomputation needed. Defending with a Key Derivation Function (KDF), minimum password complexity, and salted hashes is what makes this entire toolchain painful for an attacker.
+
+Commands shown:
+- `echo -n "password" | md5sum`
+- `hashcat -m 0 -a 0 leaked.txt /usr/share/wordlists/rockyou.txt`
+- `hashcat -m 0 -a 3 leaked.txt ?a?a?a?a?a?a`
+- `echo "icebox_quantum_eagles" | hashcat --stdout -r /usr/share/hashcat/rules/leetspeak.rule`
+- `hashcat -m 0 hash.txt --show`
+- `hashcat --help | grep -cE "^\s*[0-9]+ \|"`
+
+#infosec #hashcat #passwordsecurity #blueteam #cybersecurity
+
+## LinkedIn Description
+If your password store uses MD5, SHA-1, or any fast hash without a salt and KDF, an attacker with a leaked dump and hashcat can work through millions of candidates per second — and never recompute a hash they've cracked before. Mandate bcrypt, scrypt, or Argon2 with unique salts and enforce a minimum complexity policy to make this toolchain economically useless against you.
+
+#blueteam #passwordsecurity #cybersecurity

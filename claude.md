@@ -47,6 +47,27 @@ Four Or Five Words
 
 ## Display / CLI / Code
 ...
+
+---
+
+## Youtube title
+1. <option 1 — curiosity hook>
+2. <option 2 — shock / number angle>
+3. <option 3 — tool-forward>
+4. <option 4 — question format>
+
+## Youtube Description
+<1–3 sentence summary of what the video demonstrates>
+
+Commands shown:
+- `<command>`
+
+#infosec #<topic> #<tool> #cybersecurity
+
+## LinkedIn Description
+<1–2 sentences framed at defenders: what a blue-teamer should do / check / stop doing based on this clip>
+
+#<tag1> #<tag2> #cybersecurity
 ```
 
 ## Style Guidelines

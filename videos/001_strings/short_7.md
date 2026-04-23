@@ -111,3 +111,25 @@ Good instinct — a string in a binary is circumstantial. You want to catch it i
       &rating=pg-13
 
   That's your proof. URL in APK + live request = airtight.
+
+---
+
+## Youtube title
+1. Signal Sends Your GIF Searches Directly to Meta — Here's the Proof
+2. I Found a Meta (Giphy) Endpoint Hardcoded Inside Signal's APK
+3. `strings` on an APK: How One Line Reveals Where Signal Leaks Your Data
+4. What Does Signal Actually Send to Meta Every Time You Search for a GIF?
+
+## Youtube Description
+Unzipping Signal's Android APK and running `strings` against it reveals a direct Giphy (Meta) API endpoint — no proxy in between. Every GIF search sends your IP address, your search query, and Signal's registered API key directly to a Meta-owned server. This short shows how to find the endpoint and confirms it with a live MitM proxy capture.
+
+Commands shown:
+- `unzip -p Signal-Android-website-prod-universal-release-8.3.4.apk | strings | grep -i "https://" | sort -u`
+- `unzip -p Signal-Android-release.apk | strings | grep -i "giphy" | grep -i "key\|uri\|base"`
+
+#infosec #privacy #signal #apksecurity #cybersecurity
+
+## LinkedIn Description
+Third-party SDKs and API integrations inside mobile apps are an often-overlooked data-leakage surface — a single `strings` pass over an APK can surface direct calls to external vendors that bypass your privacy assumptions. Audit the apps your organization allows employees to use and check what endpoints they call for non-core features like GIF search.
+
+#privacy #mobileappsecurity #cybersecurity

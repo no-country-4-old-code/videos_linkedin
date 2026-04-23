@@ -38,3 +38,27 @@ man strings | head -30
 ```
 
 Show output: version info, recognizable strings from `ls` binary (paths, error messages, format strings), then hex offsets to hint at deeper use cases.
+
+---
+
+## Youtube title
+1. The One Linux Tool That Reads Binaries Like Plain Text
+2. `strings`: Extract Human-Readable Data From Any Binary in Seconds
+3. How Attackers Start Analyzing a Binary — With a Tool Already on Your System
+4. What Is `strings` and Why Every Security Engineer Should Know It?
+
+## Youtube Description
+`strings` ships with binutils and extracts printable character sequences from any binary. Use `-n` to filter out noise by setting a minimum length, and `-t x` to get the hex offset of each hit — useful for jumping straight to the right location in a hex editor.
+
+Commands shown:
+- `strings --version`
+- `strings -n 10 /usr/bin/ls | head -20`
+- `strings -t x /usr/bin/ls | head -20`
+- `man strings | head -30`
+
+#infosec #strings #binaryanalysis #linux #cybersecurity
+
+## LinkedIn Description
+Before your binaries leave the build pipeline, run `strings -n 8` on them — it takes seconds and will surface hardcoded credentials, internal paths, or debug artefacts that have no business shipping to a customer.
+
+#devsecops #appsec #cybersecurity
