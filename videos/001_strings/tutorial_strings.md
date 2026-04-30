@@ -10,7 +10,10 @@ Otherwise, just install it with:
 Now we need something to analyse.
 Let's start with the APK for Signal: `Signal-Android-website-prod-universal-release-8.3.4.apk`
 
-I unzip it with -p and pipe the output to strings.
+APKs are just ZIP files, so I can unzip it with `-p` and pipe the output directly to `strings`:
+`unzip -p Signal-Android-website-prod-universal-release-8.3.4.apk lib/x86_64/libsignal-client.so | strings | less`
+
+For the rest of the demo I'll use the already-extracted copy so we don't re-unzip every time.
 
 `strings signal/lib/x86_64/libsignal-client.so`
 With the `-n` option I set a minimum length. So with `-n 6` I only see strings which are at least 6 characters.
@@ -26,15 +29,15 @@ And then we pipe it to `less` to browse it from top to bottom and not pollute ou
 
 Here we see a lot of hardcoded URLs, which are very likely endpoints.
 You can see that Signal communicates directly to Giphy (I made a short video about this one),
-you also see that Signal uses Stripe, here we see a link to post-quantum crypto.. etc.
+you also see that Signal uses Stripe, here we see a link to post-quantum crypto, etc.
 
-A lot of recent attacks injected malware in apps by compromising the github repsoitoris they use.
-*add just a " | grep github/" at the end*
-Signal for e.g. uses this github-Repo here, with a lot of contributers.
+A lot of recent attacks have injected malware into apps by compromising the GitHub repositories they depend on.
+`strings -n 6 signal/lib/x86_64/libsignal-client.so | grep -i github | sort -u | less`
+Signal, for example, uses this GitHub repo here, with a lot of contributors.
 
 As you can see, I mostly control my search with `grep`.
 I can e.g. grep for email addresses, grep for lines which fulfill password requirements, or for lines which contain common usernames.
-But given the fact that this is not grep tutorial, lets skip that and focus on "strings" again.
+But given the fact that this is not a grep tutorial, let's skip that and focus on `strings` again.
 
 One last thing I want to show you is the `-t x` option.
 I prepared a little example file for this.
