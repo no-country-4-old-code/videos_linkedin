@@ -1,125 +1,122 @@
 ## Text
 
-If you want to "xyzyz" hashes, you should try out hashcat.
-It supports less hash-algorithmus then "JohnTheRipper" - another great tool -, but it is faster.
+If you want to crack hashes, you should try out hashcat.
+It supports fewer hash algorithms than JohnTheRipper — another great tool — but it is faster.
 
-Installation is straight-forward for debian based systems (sudo apt get install hashcat).
+Installation is straightforward for Debian-based systems:
+`sudo apt install hashcat`
 
-Lets create a password-hash with MD5. 
-I use the "-n" option here to prevent "echo" from adding a "\n" at the end.. which would polute our hash.
-BTW: Never use fast hash-functions like MD5 for hashing passwords. Use KDF like argon or scrypt.
+Let's create a password hash with MD5.
+I use the `-n` option here to prevent `echo` from adding a newline at the end, which would pollute our hash.
+`echo -n "password" | md5sum`
+BTW: Never use fast hash functions like MD5 for hashing passwords. Use a KDF like Argon2 or scrypt.
 I just use it here because I want cracking to be fast.
 
-Now there a different approach to restore the password  this hash.
+There are several approaches to recover the password behind a hash.
 The most inefficient is brute force.
-hashcat -a 3 -m 0 ?L?l?l?l?
--a defines the attack type "3" stands for brute force.
--m defines the hash type. "0" stands for MD5.
-And those question marks behind it are a mask with alias for the password.
-You an loock up those in the man page.
-"man hashcat" "/?l" .. 
-*Explain ?L?l..*
-*going  back* With this command, hashcat generate a MD5 Hash for every possible combination of a Any Big Letter word, followed by 4 low letter words.
-If we do not know, how many letters the password has, and which charakters are used, we could do something like this.
-hashcat -a 3 -m 0 --all ?a?a?a?a?a?a?a?a
-"--all" start with testing every 1-charakter-word-combination, then every 2-charakter-word-comn, then every 3.. etc.
-The ?a alias stands for every letter.
-Image that hashcat supports around 90 different charakters, there are 90**n possible passwords for a n-charakter long password. This becomes very fast not feasible. This outruns the perfomrance of your maschine very fast.
+`hashcat -a 3 -m 0 5f4dcc3b5aa765d61d8327deb882cf99 ?u?l?l?l?l?l?l?l`
+`-a` defines the attack mode — `3` stands for brute force.
+`-m` defines the hash type — `0` stands for MD5.
+The question marks at the end are a mask describing the structure of the password.
+You can look them up in the man page:
+`man hashcat` then search `/?l`
+*Explain ?u?l..*
+*going back* With this command, hashcat generates an MD5 hash for every combination of one uppercase letter followed by seven lowercase letters, and compares each result against our target hash.
+If we do not know how many letters the password has, or which characters are used, we can do something like this:
+`hashcat -a 3 -m 0 --increment 5f4dcc3b5aa765d61d8327deb882cf99 ?a?a?a?a?a?a?a?a`
+`--increment` starts by testing every 1-character combination, then every 2-character combination, then every 3-character one, and so on.
+The `?a` alias stands for any printable character — letters, digits, symbols.
+Imagine that hashcat supports around 95 different characters, so there are 95^n possible passwords for an n-character password. This becomes infeasible very fast. Brute force outruns the performance of your machine quickly.
 
-The default appraoch of hashcat to crack passwords is the dictonary attack.
-For this you give hashcat a list of potential passwords.
-The most famous list of passwords are the "rockyou.txt" files.
-nvim rockyou.txt 
-The name comes from a company which saves they passwords of their users in cleartext.
-And there was a database breach.. so yeah.. now the world has a good impresison of passwords.
-wc -l rockyou* 
-They contain xxx potential passwords, but if you look deeper there are also a lot of garbage in it..
+The default approach of hashcat to crack passwords is the dictionary attack.
+For this, you give hashcat a list of potential passwords.
+The most famous password list is the `rockyou.txt` file.
+`nvim rockyou_2025_00.txt`
+The name comes from a company that stored its users' passwords in cleartext.
+There was a database breach — so now the world has a good impression of what passwords people actually use.
+`wc -l rockyou_2025_*.txt`
+In total there are around 14 million potential passwords — but if you look closely, there is also a lot of garbage in it.
 
-Anyway.. with this command "hashcat -a 0 -m 0 12313151 /rockyou" 
-hashcat calculates the hash of every of those passwords passed with the second parameter, and compare it with the hash to crack (first parameter).
-
+Anyway, with this command hashcat calculates the hash of every password in the list and compares it with the hash to crack:
+`hashcat -a 0 -m 0 5f4dcc3b5aa765d61d8327deb882cf99 rockyou_2025_00.txt`
 Which works fine.
 
-Instead of passing a single hash, you could also pass a list of hashes as first parameter for simulatan cracking.
-nvim leaked.txt
-hashcat -a 0 -m 0 leaked.txt /rockyou
+Instead of passing a single hash, you can also pass a list of hashes as the first parameter for simultaneous cracking.
+`nvim leaked.txt`
+`hashcat -a 0 -m 0 leaked.txt rockyou_2025_00.txt`
 
-If you ran a command twice, you see that their is no calculation needed anymore.
-Thats because every password-hash which was scucessfuly cracked by hashcat once, is cached in its potfile to speed up.
-You can see the content of the potfile by "hashcat --show ...
+If you run the command a second time, you'll see there is no calculation needed anymore.
+That's because every password hash successfully cracked by hashcat once is cached in its potfile to speed things up.
+You can see the content of the potfile by running:
+`hashcat -m 0 --show leaked.txt`
+The potfile lives at `~/.local/share/hashcat/hashcat.potfile`.
 
-So this .potfile is technically your personal rainbow table for already cracked passwords.
-If a user uses a password covered by your table and hashed with MD5, then cracking is done in no time.
-echo -n "ajajaj" | md5sum
-hashcat -a 0 -m 0 dkdkdkddkdk /rockyou..
+So the potfile is technically your personal rainbow table for already cracked passwords.
+If a user uses a password covered by your table and hashed with MD5, cracking is done in no time.
+`echo -n "password" | md5sum`
+`hashcat -a 0 -m 0 5f4dcc3b5aa765d61d8327deb882cf99 rockyou_2025_00.txt`
 
-A defend-technique against rainbow tables is salting.
-So after you user entered his password, you add to this string another one. E.g this one here.
-This additonal string is called "salt".. and it does not need to be secret in anyway.
-The effect is, that it changed the hash.
-Which means our little rainbow-table, aka. potfile , it not working anymore.
+A defensive technique against rainbow tables is salting.
+So after your user enters a password, you append another string to it — for example this one here.
+This additional string is called the "salt", and it does not need to be secret in any way.
+The effect is that it changes the hash.
+`echo -n "passwordNaCl" | md5sum`
+Which means our potfile is not working anymore.
 
-hashcat can deal with salted hashes.
-hashcat -a 0 -m 0 --salt qweqe mdmdmdmdmd /rockyou .
-With "--salt" we pass the salt vaule to hashcat. Hashcat now internall extend every password in rockyou with the salt value. So the salt just forced hashcat into recalclation.
+Hashcat can deal with salted hashes.
+For salted MD5, we use hash mode 10 — that is `md5($pass.$salt)`.
+The hash file needs to be in `hash:salt` format:
+`echo "<hash from above>:NaCl" > hash_salted.txt`
+`hashcat -a 0 -m 10 hash_salted.txt rockyou_2025_00.txt`
+Hashcat now internally extends every password from the wordlist with the salt before hashing it. So the salt just forces hashcat into recalculation.
 
-There is one major puzzle piece of hashcat that you need to know - rules.
-What if someone uses a password from your list e.g. password123 ,
-but modified it via leetspeech "p4ssw0rd123" or count it up ?
-It is not longer contained in your password list, so it wont be found.
+There is one major piece of hashcat that you need to know — rules.
+What if someone uses a password from your list, like `password123`,
+but modified it with leetspeak — `p4ssw0rd123` — or appends a digit?
+It is no longer in your password list, so it won't be found.
 
-hashcat covers those cases with rules.
-hashcat --stdout -d password /lllll 
-I use the stdout option to just see he output. This is no cracking, its just testing.
-I can write my own rules, but here I used the leetspeak-rule which was shipped with hashcat.
-With rules I can automatically cover an infinte amount of variation of a password.
+Hashcat covers those cases with rules.
+`echo "password" | hashcat --stdout -r /usr/share/hashcat/rules/leetspeak.rule`
+I use the `--stdout` option to just see the output. This is not cracking, it's just testing.
+I can write my own rules, but here I used the leetspeak rule shipped with hashcat.
+With rules I can automatically cover an infinite amount of variations of a password.
 
-I can use it directly in a dictonary attack:
-hashcat -a 0 -m 0 --kkdkdkddk
+I can use rules directly in a dictionary attack:
+`hashcat -a 0 -m 0 5f4dcc3b5aa765d61d8327deb882cf99 rockyou_2025_00.txt -r /usr/share/hashcat/rules/best64.rule`
 
 But hashcat is not only about cracking.
-It is alos about building wordlists.. for cracking or other things.
-And here comes everyhing together.
+It is also about building wordlists — for cracking or other things.
+And here everything comes together.
 
-E.g. an attacker would analyse a webpage and extract a few keywords.
+For example, an attacker would analyze a webpage and extract a few keywords.
 Short list.
-Password might be a combination of those words, lets use
-hashcat -a 4 ..
-to create a combined wordlist.
-Or wait.. we are not sure, if both words are just matched together.
-Lets create a rule to add a suffix to words in one list first.
-Now merge again..
-Now lets say, we want a increasing number at the end, because this is the way people deal with "please change your password" issues. 
-We use rules for that and the "?a" aliases we know from the brute force attack.
-Now this is our password lists, which we can use in our dictonary attack.
-BAMM..
+A password might be a combination of those words, so let's use the combinator attack:
+`hashcat -a 1 --stdout keywords.txt keywords.txt > combined.txt`
+Or wait — we are not sure if both words are just combined as-is.
+Let's create a rule to append a suffix to words in one list first.
+Now merge again.
+Now let's say we want an incrementing number at the end, because that is how people deal with "please change your password" prompts.
+We use a hybrid attack with `-a 6` — wordlist plus mask — where `?d` matches any digit:
+`hashcat -a 6 --stdout combined.txt ?d?d?d > combined_plus.txt`
+Now this is our password list, which we can use in our dictionary attack.
+BAMM.
 
-At the end of this video, lets take a look at the performance.
-How many hashes can hascat try out per second.
+At the end of this video, let's take a look at performance.
+How many hashes per second can hashcat try?
 
-hashcat -b -m 0 
-And we see that hashcat try out over 1 billion hashes per second..in case of MD5.
+`hashcat -b -m 0`
+And we see that hashcat tries over 1 billion hashes per second — in the case of MD5.
 
-What if someone hashes their password with a Key-deriviation-function like scrypt. (Sadly Argon2).
-man hashcat
-/scrypt
-hashcat -b -m 8900
-And we see that the number of attempts per second drops to 200, which is around 20 millions slower.
-So.. thats the reason why you should hash your passwords with KDF.
+What if someone hashes their password with a Key Derivation Function like scrypt (hashcat sadly does not support Argon2 out of the box)?
+`man hashcat`
+`/scrypt`
+`hashcat -b -m 8900`
+And we see that the number of attempts per second drops to around 200, which is roughly 5 million times slower.
+That's the reason why you should hash your passwords with a KDF.
 
 But coming back to MD5.
-hashcat utilies per default the GPU as long as there is a driver for it.
-Hashcat -kkkk
+Hashcat utilizes the GPU by default, as long as there is a driver for it.
+`hashcat -I`
 
-And thats it.
-Got longer as expected, but.. at least now you have an idea.
-
-
-
-
-
-
-
-
-
-
+And that's it.
+Ran longer than expected, but at least now you have an idea.
