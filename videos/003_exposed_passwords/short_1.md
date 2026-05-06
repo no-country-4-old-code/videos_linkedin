@@ -1,5 +1,14 @@
 ## Short: "What rockyou.txt Says About Humans"
 
+## REVIEW:
+Overwork completly.
+A short about leaked passwords is fine.
+Something like "leaked", "passwords", "free for everyone" .. should be in the first seconds as hook.
+Short mention about RockYou (famous one).
+Then mention newer wordlists in github. "It does not stop here... X, Y, Z.. there are coming new passwords lists in all the time.".
+And the cover at least all those cheap password you can imagine. (Showing qwerty, password123..).
+So Password complexity is really a thing.
+
 ---
 
 ## Headline

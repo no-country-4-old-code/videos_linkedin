@@ -18,12 +18,11 @@ grep p@55w0rd common-password-list/rockyou*
 (and enter my-email@gmail.com)
 
 ## Text
-> Welcome to a new episode.  
-> Today we talk about lists of leaked Passwords - or why you should not use the same Password over and over again.  
+Lets talk about leaked passwords..or why you should not use the same password over and over again.
 
-> So 	Imagine you create a user account on the webpage of a cool new startup.  
-> A few months later, this startup gets hacked because it prioritized "time to market" over "cybersecurity."  
-> From now on, your password is contained in some "common-password lists" around the internet.  
+Imagine you create a user account on the webpage of a cool new startup.  
+A few months later, this startup gets hacked because it prioritized "time to market" over "cybersecurity."  
+From now on, your password is contained in some "common-password lists" around the internet.  
 
 The most famous example of one of these lists is RockYou.txt.  
 RockYou was a company that got hacked in 2009, which led to the exposure of around 14 million passwords.. which were stored in cleartext btw.  
