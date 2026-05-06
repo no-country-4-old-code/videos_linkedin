@@ -1,3 +1,9 @@
+
+## Review:
+This is already cover in the tutorial.
+Its still ok to make a short about rainbow tables.
+Convert it to a short.
+
 ## Code
 - No salt => Password -> hash(Password) -> 12341
 - With Salt => Password -> hash(Password + SaltValue) -> 123124
